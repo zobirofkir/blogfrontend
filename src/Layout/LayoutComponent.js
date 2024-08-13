@@ -1,27 +1,26 @@
 import React, { useState } from 'react';
-import HeaderComponent from '../Components/HeaderComponent';
-import SidebarComponent from '../Components/SidebarComponent'; // Corrected import
+import SidebarComponent from '../Components/SidebarComponent';
+import HomeScreen from '../Screens/HomeScreen';
 import FooterComponent from '../Components/FooterComponent';
+import HeaderComponent from '../Components/HeaderComponent';
 
-const LayoutComponent = ({ children }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+const LayoutComponent = () => {
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
+    setSidebarOpen(!isSidebarOpen);
   };
 
   return (
     <div className="flex flex-col min-h-screen">
-      <HeaderComponent toggleSidebar={toggleSidebar} />
-      <div className="flex flex-1">
-        <SidebarComponent isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-        <main className="flex-1 p-4 bg-white ml-0 md:ml-64 lg:ml-64">
-          {children}
-        </main>
+      <HeaderComponent/>
+      <SidebarComponent isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      <div className={`flex-grow transition-all duration-300 ${isSidebarOpen ? 'ml-64' : 'ml-0'}`}>
+        <HomeScreen />
       </div>
-      <FooterComponent />
+      <FooterComponent/>
     </div>
   );
-}
+};
 
 export default LayoutComponent;

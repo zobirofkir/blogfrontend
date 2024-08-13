@@ -3,7 +3,7 @@ import Logo from '../images/logo.png';
 
 const FooterComponent = () => {
   return (
-    <footer className="bg-white border-t border-gray-200 dark:bg-gray-900 dark:border-gray-700 mt-8 p-4">
+    <footer className="bg-white border-t border-gray-200 dark:bg-gray-900 dark:border-gray-700 p-4">
       <div className="max-w-screen-xl mx-auto">
         <div className="flex items-center mb-4">
           <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
