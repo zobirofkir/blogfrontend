@@ -1,10 +1,11 @@
 import './App.css';
+import HeaderComponent from './Components/HeaderComponent';
 
 function App() {
   return (
-    <div className="flex justify-center">
-      <h1>Hello World</h1>
-    </div>
+    <>
+      <HeaderComponent/>
+    </>
   );
 }
 
