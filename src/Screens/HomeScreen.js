@@ -19,9 +19,9 @@ const HomeScreen = () => {
 
   // Example blog data
   const blogs = [
-    { id: 1, title: 'Blog Post Title 1', image: 'https://via.placeholder.com/300x200', content: 'Content for Blog Post 1.' },
-    { id: 2, title: 'Blog Post Title 2', image: 'https://via.placeholder.com/300x200', content: 'Content for Blog Post 2.' },
-    { id: 3, title: 'Blog Post Title 3', image: 'https://via.placeholder.com/300x200', content: 'Content for Blog Post 3.' }
+    { id: 1, title: 'Blog Post Title 1', image: 'https://via.placeholder.com/300x200', content: 'Content for Blog Post 1.', comments:'Heeeeeeeeeeeeeeeeeeee' },
+    { id: 2, title: 'Blog Post Title 2', image: 'https://via.placeholder.com/300x200', content: 'Content for Blog Post 2.', comments:'Heeeeeeeeeeeeeeeeeeee' },
+    { id: 3, title: 'Blog Post Title 3', image: 'https://via.placeholder.com/300x200', content: 'Content for Blog Post 3.', comments:'Heeeeeeeeeeeeeeeeeeee' }
   ];
 
   return (
