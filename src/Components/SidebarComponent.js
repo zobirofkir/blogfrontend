@@ -32,9 +32,8 @@ const SidebarComponent = ({ isSidebarOpen, toggleSidebar }) => {
         id="sidebar"
       >
         <div className="flex flex-col h-full">
-          <div className="flex items-center p-4">
-            <img src={Logo} className="h-8" alt="CSW-BLOG" />
-            <span className="ml-3 text-2xl font-semibold dark:text-white">CSW-BLOG</span>
+          <div className="flex items-center p-4 mt-20 block ">
+            <img src={Logo} className="h-20 flex justify-center" alt="CSW-BLOG" />
           </div>
           <nav className="flex-1 p-4">
             <ul className="space-y-2">
@@ -48,7 +47,7 @@ const SidebarComponent = ({ isSidebarOpen, toggleSidebar }) => {
               </li>
               <li>
                 <a
-                  href="/about"
+                  href="/abouts"
                   className="block py-2 px-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                 >
                   About
