@@ -15,8 +15,8 @@ const App = () => {
       <LayoutComponent>
         <Routes>
           <Route path="/" element={<HomeScreen />} />
-          <Route path="/about" element={<AboutScreen />} />
-          <Route path="/blog" element={<BlogScreen />} />
+          <Route path="/abouts" element={<AboutScreen />} />
+          <Route path="/blogs" element={<BlogScreen />} />
           <Route path="/news" element={<NewsScreen />} />
           <Route path="/contacts" element={<ContactScreen />} />
         </Routes>

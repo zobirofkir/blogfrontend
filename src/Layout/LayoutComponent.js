@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import SidebarComponent from '../Components/SidebarComponent';
-import HomeScreen from '../Screens/HomeScreen';
 import FooterComponent from '../Components/FooterComponent';
 import HeaderComponent from '../Components/HeaderComponent';
 
-const LayoutComponent = () => {
+const LayoutComponent = ({ children }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -13,12 +12,14 @@ const LayoutComponent = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <HeaderComponent/>
-      <SidebarComponent isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-      <div className={`flex-grow transition-all duration-300 ${isSidebarOpen ? 'ml-64' : 'ml-0'}`}>
-        <HomeScreen />
+      <HeaderComponent />
+      <div className="flex flex-1">
+        <SidebarComponent isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+        <main className={`flex-grow transition-all overflow-hidden duration-300 ${isSidebarOpen ? 'ml-64' : 'ml-0'}`}>
+          {children}
+        </main>
       </div>
-      <FooterComponent/>
+      <FooterComponent />
     </div>
   );
 };
