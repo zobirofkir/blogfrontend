@@ -1,11 +1,15 @@
-import './App.css';
-import HeaderComponent from './Components/HeaderComponent';
+import React from 'react';
+import LayoutComponent from './Layout/LayoutComponent';
 
-function App() {
+const App = () => {
   return (
-    <>
-      <HeaderComponent/>
-    </>
+    <LayoutComponent>
+      <div>
+        {/* Main content goes here */}
+        <h1>Welcome to CSW-BLOG</h1>
+        <p>This is your main content area.</p>
+      </div>
+    </LayoutComponent>
   );
 }
 
