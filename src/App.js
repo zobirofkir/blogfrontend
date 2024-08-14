@@ -8,6 +8,7 @@ import AboutScreen from './Screens/AboutScreen';
 import BlogScreen from './Screens/BlogScreen';
 import NewsScreen from './Screens/NewsScreen';
 import ContactScreen from './Screens/ContactScreen';
+import LoginScreen from './Screens/auth/LoginScreen'
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/blogs" element={<BlogScreen />} />
           <Route path="/news" element={<NewsScreen />} />
           <Route path="/contacts" element={<ContactScreen />} />
+          <Route path="/login" element={<LoginScreen/>}/>
         </Routes>
       </LayoutComponent>
     </Router>

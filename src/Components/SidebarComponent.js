@@ -77,6 +77,16 @@ const SidebarComponent = ({ isSidebarOpen, toggleSidebar }) => {
                   Contact
                 </a>
               </li>
+
+              <li>
+                <a
+                  href="/login"
+                  className="block py-2 px-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 md:mt-48 mt-10"
+                >
+                  Login
+                </a>
+              </li>
+
             </ul>
           </nav>
         </div>
