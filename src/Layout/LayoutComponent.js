@@ -1,25 +1,44 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import SidebarComponent from '../Components/SidebarComponent';
 import FooterComponent from '../Components/FooterComponent';
 import HeaderComponent from '../Components/HeaderComponent';
 
 const LayoutComponent = ({ children }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const location = useLocation();
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
 
+  // Determine whether to show the sidebar, header, and footer based on the current route
+  const isDashboardRoute = location.pathname === '/dashboard';
+  const isCreateBlogRoute = location.pathname === '/create-blog';
+  const isSidebarVisible = !isDashboardRoute && !isCreateBlogRoute;
+
   return (
     <div className="flex flex-col min-h-screen">
-      <HeaderComponent />
+      {/* Conditionally render HeaderComponent */}
+      {!isDashboardRoute && !isCreateBlogRoute && <HeaderComponent />}
       <div className="flex flex-1">
-        <SidebarComponent isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-        <main className={`flex-grow transition-all overflow-hidden duration-300 ${isSidebarOpen ? 'ml-64' : 'ml-0'}`}>
+        {/* Conditionally render SidebarComponent */}
+        {isSidebarVisible && (
+          <SidebarComponent
+            isSidebarOpen={isSidebarOpen}
+            toggleSidebar={toggleSidebar}
+          />
+        )}
+        <main
+          className={`flex-grow transition-all overflow-hidden duration-300 ${
+            isSidebarOpen && isSidebarVisible ? 'ml-64' : 'ml-0'
+          }`}
+        >
           {children}
         </main>
       </div>
-      <FooterComponent />
+      {/* Conditionally render FooterComponent */}
+      {!isDashboardRoute && !isCreateBlogRoute && <FooterComponent />}
     </div>
   );
 };
