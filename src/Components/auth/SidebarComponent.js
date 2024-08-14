@@ -73,6 +73,66 @@ const SidebarComponent = ({ isOpen, toggleSidebar, user, handleLogout }) => {
           <img src={Logo} alt="Logo" className="h-12 w-auto" />
         </div>
 
+
+        {/* Blog Management */}
+        <div className='mt-10'>
+          <button
+            onClick={() => setShowBlogActions(!showBlogActions)}
+            className="text-white p-2 rounded w-full text-center bg-blue-800 hover:bg-blue-700"
+          >
+            Blog
+          </button>
+          {/* Drop-down Blog Actions */}
+          <div
+            className={`mt-2 bg-gray-700 text-white transition-transform transform ${showBlogActions ? 'scale-100' : 'scale-0'} z-40 origin-top-left`}
+            style={{ width: '16rem', transition: 'transform 0.3s ease-in-out' }}
+          >
+            <div className="p-4">
+              <button
+                className="block w-full p-2 mb-2 bg-green-600 hover:bg-green-700 rounded"
+                onClick={handleBlogCreate}
+              >
+                Create Blog
+              </button>
+              <button
+                className="block w-full p-2 bg-yellow-500 hover:bg-yellow-600 rounded"
+                onClick={handleBlogUpdate}
+              >
+                Update Blog
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* User Management */}
+        <div className='-mt-28'>
+          <button
+            onClick={() => setShowUserActions(!showUserActions)}
+            className="text-white p-2 rounded w-full text-center bg-blue-800 hover:bg-blue-700"
+          >
+            User
+          </button>
+          {/* Drop-down User Actions */}
+          <div
+            className={`mt-2 bg-gray-700 text-white transition-transform transform ${showUserActions ? 'scale-100' : 'scale-0'} z-40 origin-top-left`}
+            style={{ width: '16rem', transition: 'transform 0.3s ease-in-out' }}
+          >
+            <div className="p-4">
+              <button
+                className="block w-full p-2 mb-2 bg-green-600 hover:bg-green-700 rounded"
+                onClick={handleUserCreate}
+              >
+                Create User
+              </button>
+              <button
+                className="block w-full p-2 bg-yellow-500 hover:bg-yellow-600 rounded"
+                onClick={handleUserUpdate}
+              >
+                Update User
+              </button>
+            </div>
+          </div>
+        </div>
         {/* User Info and Sidebar Links */}
         <div className="mt-6 border-t border-gray-600 pt-4">
           {user && (
@@ -171,66 +231,6 @@ const SidebarComponent = ({ isOpen, toggleSidebar, user, handleLogout }) => {
               </button>
             </div>
           )}
-        </div>
-
-        {/* Blog Management */}
-        <div className='mt-6'>
-          <button
-            onClick={() => setShowBlogActions(!showBlogActions)}
-            className="text-white p-2 rounded w-full text-center bg-blue-800 hover:bg-blue-700"
-          >
-            Blog
-          </button>
-          {/* Drop-down Blog Actions */}
-          <div
-            className={`mt-2 bg-gray-700 text-white transition-transform transform ${showBlogActions ? 'scale-100' : 'scale-0'} z-40 origin-top-left`}
-            style={{ width: '16rem', transition: 'transform 0.3s ease-in-out' }}
-          >
-            <div className="p-4">
-              <button
-                className="block w-full p-2 mb-2 bg-green-600 hover:bg-green-700 rounded"
-                onClick={handleBlogCreate}
-              >
-                Create Blog
-              </button>
-              <button
-                className="block w-full p-2 bg-yellow-500 hover:bg-yellow-600 rounded"
-                onClick={handleBlogUpdate}
-              >
-                Update Blog
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* User Management */}
-        <div className='-mt-28'>
-          <button
-            onClick={() => setShowUserActions(!showUserActions)}
-            className="text-white p-2 rounded w-full text-center bg-blue-800 hover:bg-blue-700"
-          >
-            User
-          </button>
-          {/* Drop-down User Actions */}
-          <div
-            className={`mt-2 bg-gray-700 text-white transition-transform transform ${showUserActions ? 'scale-100' : 'scale-0'} z-40 origin-top-left`}
-            style={{ width: '16rem', transition: 'transform 0.3s ease-in-out' }}
-          >
-            <div className="p-4">
-              <button
-                className="block w-full p-2 mb-2 bg-green-600 hover:bg-green-700 rounded"
-                onClick={handleUserCreate}
-              >
-                Create User
-              </button>
-              <button
-                className="block w-full p-2 bg-yellow-500 hover:bg-yellow-600 rounded"
-                onClick={handleUserUpdate}
-              >
-                Update User
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </div>

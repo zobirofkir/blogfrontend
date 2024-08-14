@@ -52,8 +52,9 @@ const DetailsScreen = () => {
   };
 
   // Paginate comments
+  const totalComments = comments.length;
+  const totalPages = Math.ceil(totalComments / CommentsPerPage);
   const paginatedComments = comments.slice((currentPage - 1) * CommentsPerPage, currentPage * CommentsPerPage);
-  const totalPages = Math.ceil(comments.length / CommentsPerPage);
 
   // Change page
   const handlePageChange = (pageNumber) => {
@@ -104,29 +105,34 @@ const DetailsScreen = () => {
 
         <section className="mt-8">
           <h2 className="text-2xl font-semibold mb-6 text-gray-900 dark:text-gray-100">Comments</h2>
-          <div className="space-y-4">
-            {paginatedComments.length > 0 ? (
-              paginatedComments.map(comment => (
-                <div key={comment.id} className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg shadow-sm">
-                  <p className="text-gray-800 dark:text-gray-300">{comment.content}</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                    {new Date(comment.created_at).toLocaleDateString()}
-                  </p>
-                </div>
-              ))
-            ) : (
-              <p className="text-gray-600 dark:text-gray-400">No comments yet.</p>
-            )}
-          </div>
+          {loading ? (
+            <div className="text-gray-600 dark:text-gray-400">Loading comments...</div>
+          ) : (
+            <div className="space-y-4">
+              {paginatedComments.length > 0 ? (
+                paginatedComments.map(comment => (
+                  <div key={comment.id} className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg shadow-sm">
+                    <p className="text-gray-800 dark:text-gray-300">{comment.content}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                      {new Date(comment.created_at).toLocaleDateString()}
+                    </p>
+                  </div>
+                ))
+              ) : (
+                <p className="text-gray-600 dark:text-gray-400">No comments yet.</p>
+              )}
+            </div>
+          )}
 
           {/* Pagination Controls */}
-          {totalPages > 1 && (
+          {totalPages > 1 && comments.length > 0 && (
             <div className="mt-6 flex justify-center space-x-2">
               {Array.from({ length: totalPages }, (_, index) => (
                 <button
                   key={index}
                   onClick={() => handlePageChange(index + 1)}
                   className={`px-4 py-2 border rounded-lg ${currentPage === index + 1 ? 'bg-blue-600 text-white dark:bg-blue-500 dark:text-gray-900' : 'bg-white text-gray-800 dark:bg-gray-800 dark:text-gray-300'} border-gray-300 dark:border-gray-600 hover:bg-blue-700 dark:hover:bg-blue-400`}
+                  aria-label={`Page ${index + 1}`}
                 >
                   {index + 1}
                 </button>

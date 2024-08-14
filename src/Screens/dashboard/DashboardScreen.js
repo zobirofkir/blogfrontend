@@ -22,8 +22,12 @@ const DashboardScreen = () => {
   const [blogs, setBlogs] = useState([]);
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [darkMode, setDarkMode] = useState(false); // Dark mode state
-  const token = localStorage.getItem('access_token');
+  const [currentPage, setCurrentPage] = useState(1); // Added state for current page
 
+  const token = localStorage.getItem('access_token');
+  const commentsPerPage = 5;
+
+  // Function to fetch blogs
   const handleBlog = async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/blogs`);
@@ -33,10 +37,12 @@ const DashboardScreen = () => {
     }
   };
 
+  // Fetch blogs on component mount
   useEffect(() => {
     handleBlog();
   }, []);
 
+  // Fetch user data when token changes
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -59,10 +65,12 @@ const DashboardScreen = () => {
     fetchUserData();
   }, [token]);
 
+  // Handle blog click
   const handleBlogClick = (blog) => {
     setSelectedBlog(blog);
   };
 
+  // Handle close popup
   const handleClosePopup = () => {
     setSelectedBlog(null);
   };
@@ -131,6 +139,11 @@ const DashboardScreen = () => {
     },
   };
 
+  // Calculate total pages and current comments
+  const totalPages = selectedBlog ? Math.ceil(selectedBlog.comments.length / commentsPerPage) : 0;
+  const startIndex = (currentPage - 1) * commentsPerPage;
+  const currentComments = selectedBlog ? selectedBlog.comments.slice(startIndex, startIndex + commentsPerPage) : [];
+
   return (
     <>
       <HeaderComponent />
@@ -198,22 +211,64 @@ const DashboardScreen = () => {
                   ))}
                 </div>
               </div>
+              
+              {/* Blog Comments Section */}
+              {selectedBlog && (
+                <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+                  <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md">
+                    <button className="absolute top-2 right-2 text-gray-600 dark:text-gray-400" onClick={handleClosePopup}>
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                    <h3 className="text-xl font-semibold dark:text-gray-500">{selectedBlog.title}</h3>
+                    <img src={selectedBlog.image} alt={selectedBlog.title} className="w-full h-48 object-cover rounded-md" />
+                      <h3 className="text-xl font-semibold mt-4 dark:text-gray-500">{selectedBlog.title}</h3>
+                      <p className="mt-2 dark:text-gray-400">{selectedBlog.description}</p>
+                    <p className="mt-2 dark:text-gray-400">{selectedBlog.content}</p>
+                    <div className="mt-4">
+                      <h4 className="text-lg font-semibold dark:text-gray-500">Comments</h4>
+                      {currentComments.length > 0 ? (
+                        <ul className="mt-2">
+                          {currentComments.map((comment) => (
+                            <li key={comment.id} className="p-2 border-b dark:border-gray-600">
+                              <p className="font-semibold dark:text-gray-300">{comment.author}</p>
+                              <p className="dark:text-gray-400">{comment.content}</p>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="dark:text-gray-500">No comments available.</p>
+                      )}
+                      {/* Pagination */}
+                      {totalPages > 1 && (
+                        <div className="flex justify-between mt-4">
+                          <button
+                            className="px-4 py-2 bg-gray-300 dark:bg-gray-700 dark:text-gray-500 rounded hover:bg-gray-400 dark:hover:bg-gray-600 transition"
+                            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                            disabled={currentPage === 1}
+                          >
+                            Previous
+                          </button>
+                          <span className="self-center dark:text-gray-500">
+                            Page {currentPage} of {totalPages}
+                          </span>
+                          <button
+                            className="px-4 py-2 bg-gray-300 dark:bg-gray-700 dark:text-gray-500 rounded hover:bg-gray-400 dark:hover:bg-gray-600 transition"
+                            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                            disabled={currentPage === totalPages}
+                          >
+                            Next
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
             </>
           ) : (
-            <p className="dark:text-gray-500">User not found.</p>
-          )}
-
-          {selectedBlog && (
-            <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75" onClick={handleClosePopup}>
-              <div className="bg-white dark:bg-gray-800 p-6 rounded-lg w-3/4 md:w-1/2 lg:w-1/3" onClick={(e) => e.stopPropagation()}>
-                <h2 className="text-2xl font-semibold dark:text-gray-500">{selectedBlog.title}</h2>
-                <img src={selectedBlog.image} alt={selectedBlog.title} className="w-full h-64 object-cover mt-4 rounded-md" />
-                <p className="mt-4 dark:text-gray-400">{selectedBlog.description}</p>
-                <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={handleClosePopup}>
-                  Close
-                </button>
-              </div>
-            </div>
+            <p className="dark:text-gray-500">No user data available.</p>
           )}
         </main>
       </div>

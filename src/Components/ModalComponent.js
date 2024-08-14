@@ -1,36 +1,50 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify'; // Import Toastify
+import 'react-toastify/dist/ReactToastify.css'; // Import Toastify CSS
 
 const ModalComponent = ({ isOpen, onClose, blog }) => {
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
+  const [comment, setComment] = useState('');
   const commentsPerPage = 5;
 
   if (!isOpen) return null;
 
-  // Calculate the total number of pages
   const totalPages = Math.ceil(blog.comments.length / commentsPerPage);
-
-  // Get the comments to display on the current page
   const startIndex = (currentPage - 1) * commentsPerPage;
   const currentComments = blog.comments.slice(startIndex, startIndex + commentsPerPage);
 
-  // Handle pagination button click
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-  // Handle navigation to blog details
   const handleNavigateToDetails = () => {
     navigate(`/details/${blog.slug}`);
-    onClose(); // Optionally close the modal after navigation
+    onClose();
+  };
+
+  const handleCommentChange = (e) => {
+    setComment(e.target.value);
+  };
+
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/blogs/${blog.slug}/comments`, { content: comment });
+      setComment('');
+      toast.success('Comment posted successfully!'); // Display success notification
+    } catch (error) {
+      console.error('Error posting comment:', error);
+      toast.error('Failed to post comment.'); // Display error notification
+    }
   };
 
   return ReactDOM.createPortal(
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="relative bg-white dark:bg-gray-800 w-full max-w-3xl h-auto max-h-[90vh] overflow-y-auto rounded-lg shadow-lg p-6">
-        {/* Close Button */}
         <button
           className="absolute top-4 right-4 text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-100 focus:outline-none"
           onClick={onClose}
@@ -51,7 +65,6 @@ const ModalComponent = ({ isOpen, onClose, blog }) => {
           </svg>
         </button>
 
-        {/* Blog Content */}
         <div className="mb-6">
           <h2 className="text-2xl sm:text-3xl font-bold mb-4 dark:text-white">{blog.title}</h2>
           <div className="flex justify-center mb-6">
@@ -64,11 +77,12 @@ const ModalComponent = ({ isOpen, onClose, blog }) => {
           <p className="text-gray-700 dark:text-gray-300">{blog.description}</p>
         </div>
 
-        {/* Add Comment Section */}
         <div className="mb-6">
           <h3 className="text-lg sm:text-2xl font-semibold mb-4 dark:text-white">Add a Comment</h3>
-          <form className="mb-6">
+          <form onSubmit={handleCommentSubmit} className="mb-6">
             <textarea
+              value={comment}
+              onChange={handleCommentChange}
               className="w-full p-4 border border-gray-300 rounded-md dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Write your comment..."
               rows="4"
@@ -82,7 +96,6 @@ const ModalComponent = ({ isOpen, onClose, blog }) => {
           </form>
         </div>
 
-        {/* Display Comments with Pagination */}
         <div>
           <h3 className="text-lg sm:text-2xl font-semibold mb-4 dark:text-white">Comments</h3>
           <div className="space-y-4">
@@ -97,7 +110,6 @@ const ModalComponent = ({ isOpen, onClose, blog }) => {
             )}
           </div>
 
-          {/* Pagination Controls */}
           {totalPages > 1 && (
             <div className="flex justify-center mt-4">
               <button
@@ -127,7 +139,6 @@ const ModalComponent = ({ isOpen, onClose, blog }) => {
           )}
         </div>
 
-        {/* Navigate to Blog Details */}
         <div className="mt-6 text-center">
           <button
             onClick={handleNavigateToDetails}
@@ -137,6 +148,7 @@ const ModalComponent = ({ isOpen, onClose, blog }) => {
           </button>
         </div>
       </div>
+      <ToastContainer /> {/* Add ToastContainer */}
     </div>,
     document.body
   );
