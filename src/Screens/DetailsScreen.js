@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify'; // Import Toastify
+import 'react-toastify/dist/ReactToastify.css'; // Import Toastify CSS
 
 const CommentsPerPage = 5;
 
@@ -44,6 +46,7 @@ const DetailsScreen = () => {
     try {
       const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/blogs/${slug}/comments`, { content: newComment });
       setComments([response.data.data, ...comments]);
+      toast.success('Comment posted successfully!'); // Display success notification
       setNewComment('');
     } catch (error) {
       setError('Error posting comment. Please try again.');
@@ -74,6 +77,8 @@ const DetailsScreen = () => {
   }
 
   return (
+    <>
+    <ToastContainer/>
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white p-6 sm:p-8 md:p-12 lg:p-16">
       <article className="w-full mx-auto max-w-3xl bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">{blog.title}</h1>
@@ -142,6 +147,7 @@ const DetailsScreen = () => {
         </section>
       </article>
     </div>
+    </>
   );
 };
 

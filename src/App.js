@@ -30,7 +30,7 @@ const App = () => {
 
           <Route path="/dashboard" element={<ProtectedRoute element={<DashboardScreen />} />} />
           <Route path="/create-blog" element={<ProtectedRoute element={<CreateBlogScreen />} />} />
-          <Route path="/update-blog/:id" element={<ProtectedRoute element={<UpdateBlogScreen />} />} />
+          <Route path="/update-blog" element={<ProtectedRoute element={<UpdateBlogScreen />} />} />
         </Routes>
       </LayoutComponent>
     </Router>

@@ -15,12 +15,13 @@ const LayoutComponent = ({ children }) => {
   // Determine whether to show the sidebar, header, and footer based on the current route
   const isDashboardRoute = location.pathname === '/dashboard';
   const isCreateBlogRoute = location.pathname === '/create-blog';
-  const isSidebarVisible = !isDashboardRoute && !isCreateBlogRoute;
+  const isUpdateBlogRoute = location.pathname.startsWith('/update');
+  const isSidebarVisible = !isDashboardRoute && !isCreateBlogRoute && !isUpdateBlogRoute;
 
   return (
     <div className="flex flex-col min-h-screen">
       {/* Conditionally render HeaderComponent */}
-      {!isDashboardRoute && !isCreateBlogRoute && <HeaderComponent />}
+      {!isDashboardRoute && !isCreateBlogRoute && !isUpdateBlogRoute && <HeaderComponent />}
       <div className="flex flex-1">
         {/* Conditionally render SidebarComponent */}
         {isSidebarVisible && (
@@ -38,7 +39,7 @@ const LayoutComponent = ({ children }) => {
         </main>
       </div>
       {/* Conditionally render FooterComponent */}
-      {!isDashboardRoute && !isCreateBlogRoute && <FooterComponent />}
+      {!isDashboardRoute && !isCreateBlogRoute && !isUpdateBlogRoute && <FooterComponent />}
     </div>
   );
 };

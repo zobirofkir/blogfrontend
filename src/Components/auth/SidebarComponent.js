@@ -52,7 +52,7 @@ const SidebarComponent = ({ isOpen, toggleSidebar, user, handleLogout }) => {
   };
   
   const handleBlogUpdate = () => {
-    alert('Update Blog clicked');
+    navigate("/update-blog");
   };
 
   const handleUserUpdate = () => {
