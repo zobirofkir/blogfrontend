@@ -31,7 +31,6 @@ const UpdateUserScreen = () => {
         // Ensure the response structure matches your API
         const allUsers = response.data.data; // Adjust this if needed
         setUsers(allUsers);
-        toast.success('Users fetched successfully!');
       } catch (error) {
         console.error("Error fetching users:", error);
         toast.error("You Don't Have Access.");
@@ -90,9 +89,11 @@ const UpdateUserScreen = () => {
     } catch (error) {
       if (error.response && error.response.data) {
         console.error("Full error response:", error.response.data); // Log the full error response
-        const errorMessages = error.response.data.errors || [];
+        const errorMessages = error.response.data.message || [];
         // Adjust based on the actual structure of your error response
-        const formattedErrors = Array.isArray(errorMessages) ? errorMessages.join(' ') : 'Error updating user.';
+        const formattedErrors = errorMessages && Array.isArray(errorMessages) 
+        ? errorMessages.join(' ') 
+        : "Add Password with a minimum of 8 characters";
         toast.error(formattedErrors);
       } else {
         toast.error('Error updating user. Please try again.');

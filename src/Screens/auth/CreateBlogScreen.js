@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const CreateBlogScreen = () => {
   const [title, setTitle] = useState('');
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState(null); // Change to null
   const [description, setDescription] = useState('');
   const [slug, setSlug] = useState('');
   const [error, setError] = useState('');
@@ -40,17 +40,17 @@ const CreateBlogScreen = () => {
       return;
     }
 
-    const data = {
-      title,
-      image,
-      description,
-      slug
-    };
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('image', image); // Append the file
+    formData.append('description', description);
+    formData.append('slug', slug);
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/blogs`, data, {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/blogs`, formData, {
         headers: {
-          "Authorization": `Bearer ${token}`
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "multipart/form-data" // Set content type
         }
       });
 
@@ -63,7 +63,7 @@ const CreateBlogScreen = () => {
       const updatedBlogs = [...blogs, response.data];
       setBlogs(updatedBlogs);
       setTitle('');
-      setImage('');
+      setImage(null); // Reset image
       setDescription('');
       setSlug('');
     } catch (err) {
@@ -114,13 +114,12 @@ const CreateBlogScreen = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Image URL:</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Image:</label>
               <input 
-                type="text" 
-                value={image} 
-                onChange={(e) => setImage(e.target.value)} 
+                type="file" 
+                onChange={(e) => setImage(e.target.files[0])}
                 required 
-                className="mt-1 block w-full border border-gray-300 dark:border-gray-700 rounded-lg p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="mt-1 block w-full border border-gray-300 dark:border-gray-700 rounded-lg p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:text-white"
               />
             </div>
             <div>

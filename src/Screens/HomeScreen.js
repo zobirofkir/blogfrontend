@@ -23,7 +23,7 @@ const HomeScreen = () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/blogs`);
       console.log(response.data.data);
-      setBlogs(response.data.data); // Corrected to match state variable name
+      setBlogs(response.data.data);
     } catch (error) {
       console.error("Error fetching blogs:", error);
     }
@@ -36,7 +36,7 @@ const HomeScreen = () => {
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
       {/* Hero Section */}
-      <div className="bg-cover bg-center h-screen" style={{ backgroundImage: 'url("https://via.placeholder.com/1200x600")' }}>
+      <div className="bg-cover bg-center h-screen" style={{ backgroundImage: 'url("https://64.media.tumblr.com/f6dff92075ad6a4c49157a26f06189c8/tumblr_nmdbcht7j31sgdp89o1_400.gif")' }}>
         <div className="h-full bg-black bg-opacity-50 flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-white">Welcome to Our Blog</h1>

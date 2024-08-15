@@ -6,7 +6,6 @@ import LayoutComponent from './Layout/LayoutComponent';
 import HomeScreen from './Screens/HomeScreen';
 import AboutScreen from './Screens/AboutScreen';
 import BlogScreen from './Screens/BlogScreen';
-import NewsScreen from './Screens/NewsScreen';
 import ContactScreen from './Screens/ContactScreen';
 import LoginScreen from './Screens/auth/LoginScreen';
 import DetailsScreen from './Screens/DetailsScreen';
@@ -25,7 +24,6 @@ const App = () => {
           <Route path="/" element={<HomeScreen />} />
           <Route path="/abouts" element={<AboutScreen />} />
           <Route path="/blogs" element={<BlogScreen />} />
-          <Route path="/news" element={<NewsScreen />} />
           <Route path="/contacts" element={<ContactScreen />} />
           <Route path='details/:slug' element={<DetailsScreen />} />
           <Route path="/login" element={<LoginScreen />} />

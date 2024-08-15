@@ -19,9 +19,6 @@ const FooterComponent = () => {
             <a href="/blog" className="hover:underline">Blog</a>
           </li>
           <li>
-            <a href="/news" className="hover:underline">News</a>
-          </li>
-          <li>
             <a href="/contacts" className="hover:underline">Contact</a>
           </li>
         </ul>

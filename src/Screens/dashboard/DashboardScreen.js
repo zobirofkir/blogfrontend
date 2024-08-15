@@ -7,9 +7,9 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, 
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  BarElement, // Register BarElement for Bar chart
-  LineElement, // Register LineElement for Line chart
-  PointElement, // Register PointElement for Line chart
+  BarElement, 
+  LineElement,
+  PointElement,
   Title,
   Tooltip,
   Legend
@@ -21,13 +21,12 @@ const DashboardScreen = () => {
   const [error, setError] = useState(null);
   const [blogs, setBlogs] = useState([]);
   const [selectedBlog, setSelectedBlog] = useState(null);
-  const [darkMode, setDarkMode] = useState(false); // Dark mode state
-  const [currentPage, setCurrentPage] = useState(1); // Added state for current page
+  const [darkMode, setDarkMode] = useState(false); 
+  const [currentPage, setCurrentPage] = useState(1);
 
   const token = localStorage.getItem('access_token');
   const commentsPerPage = 5;
 
-  // Function to fetch blogs
   const handleBlog = async () => {
     try {
       const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/blogs`);
@@ -37,12 +36,10 @@ const DashboardScreen = () => {
     }
   };
 
-  // Fetch blogs on component mount
   useEffect(() => {
     handleBlog();
   }, []);
 
-  // Fetch user data when token changes
   useEffect(() => {
     const fetchUserData = async () => {
       try {
