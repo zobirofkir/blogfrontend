@@ -34,9 +34,9 @@ const BlogScreen = () => {
   };
 
   return (
-    <div className="p-4 bg-gray-100 dark:bg-gray-900 min-h-screen">
+    <div className="bg-gray-100 dark:bg-gray-900 min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-blue-500 text-white h-screen flex items-center justify-center dark:bg-blue-800">
+      <section className="relative text-white bg-cover bg-center h-screen flex items-center justify-center dark:bg-dark-image bg-light-image">
           <div
             className="absolute inset-0 bg-cover bg-center opacity-50"
             style={{ backgroundImage: 'url(/path/to/your/image.jpg)' }}
@@ -46,7 +46,7 @@ const BlogScreen = () => {
               Welcome to Our Blog
             </h1>
             <p className="mt-4 text-lg md:text-xl">
-              Stay updated with the latest news, tips, and insights.
+              Stay updated with the latest blogs, tips, and insights.
             </p>
             <a
               href="#latest-posts"

@@ -1,10 +1,10 @@
 import React from 'react';
 import Logo from '../images/logo.png';
+import ThemeSwitcher from '../Components/ThemeSwitcher'; 
 
 const SidebarComponent = ({ isSidebarOpen, toggleSidebar }) => {
   return (
     <div>
-      {/* Button to toggle the sidebar */}
       <button
         onClick={toggleSidebar}
         type="button"
@@ -24,7 +24,6 @@ const SidebarComponent = ({ isSidebarOpen, toggleSidebar }) => {
         )}
       </button>
 
-      {/* Sidebar */}
       <div
         className={`fixed top-0 left-0 h-full bg-white dark:bg-gray-900 md:w-64 w-full transition-transform duration-300 overflow-hidden ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
@@ -32,7 +31,7 @@ const SidebarComponent = ({ isSidebarOpen, toggleSidebar }) => {
         id="sidebar"
       >
         <div className="flex flex-col h-full">
-          <div className="flex items-center p-4 mt-20 block ">
+          <div className="flex items-center p-4 mt-20 block">
             <img src={Logo} className="h-20 flex justify-center" alt="CSW-BLOG" />
           </div>
           <nav className="flex-1 p-4">
@@ -86,6 +85,10 @@ const SidebarComponent = ({ isSidebarOpen, toggleSidebar }) => {
             >
               Login
             </a>
+          </div>
+          <div className="p-4">
+            {/* Add the ThemeSwitcher component here */}
+            <ThemeSwitcher />
           </div>
         </div>
       </div>
