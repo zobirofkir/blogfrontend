@@ -78,6 +78,9 @@ const SidebarComponent = ({ isSidebarOpen, toggleSidebar }) => {
               </li>
             </ul>
           </nav>
+          <div className='p-4'>
+            <p className="text-white font-bold text-sm">If you need to be an admin to create blogs, just contact me.</p>
+          </div>
           <div className="p-4">
             <a
               href="/login"
