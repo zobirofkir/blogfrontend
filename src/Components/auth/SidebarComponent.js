@@ -217,12 +217,12 @@ const SidebarComponent = ({ isOpen, toggleSidebar, user, handleLogout }) => {
             </form>
           ) : (
             <div>
-              <button
+              {/* <button
                 onClick={() => setEditMode(true)}
                 className="block w-full text-left mb-2 p-2 hover:bg-gray-700 rounded"
               >
                 Edit Info
-              </button>
+              </button> */}
               <button
                 onClick={handleLogout}
                 className="block w-full text-left p-2 hover:bg-gray-700 rounded"
