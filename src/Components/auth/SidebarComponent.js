@@ -56,11 +56,11 @@ const SidebarComponent = ({ isOpen, toggleSidebar, user, handleLogout }) => {
   };
 
   const handleUserUpdate = () => {
-    alert('Update User clicked');
+    navigate('/update-user');
   };
 
   const handleUserCreate = () => {
-    alert('Create User clicked');
+    navigate('/create-user')
   };
 
   return (
