@@ -4,13 +4,12 @@ import HeaderComponent from '../../Components/auth/HeaderComponent';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 const UpdateBlogScreen = () => {
   const [blogs, setBlogs] = useState([]);
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [formData, setFormData] = useState({
     title: '',
-    image: '',
+    image: null,
     description: '',
     slug: ''
   });
@@ -37,7 +36,7 @@ const UpdateBlogScreen = () => {
     setSelectedBlog(blog);
     setFormData({
       title: blog.title,
-      image: blog.image,
+      image: null, // Reset image file
       description: blog.description,
       slug: blog.slug
     });
@@ -46,11 +45,11 @@ const UpdateBlogScreen = () => {
 
   // Handle form input change
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
+    const { name, value, type, files } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: type === 'file' ? files[0] : value
+    }));
   };
 
   // Submit form to update blog
@@ -61,18 +60,27 @@ const UpdateBlogScreen = () => {
 
     const token = localStorage.getItem('access_token'); // Retrieve token from local storage
 
+    const updatedFormData = new FormData();
+    updatedFormData.append('title', formData.title);
+    updatedFormData.append('description', formData.description);
+    updatedFormData.append('slug', formData.slug);
+    if (formData.image) {
+      updatedFormData.append('image', formData.image);
+    }
+
     try {
       await axios.put(
         `${process.env.REACT_APP_BACKEND_URL}/api/blogs/${selectedBlog.slug}`,
-        formData,
+        updatedFormData,
         {
           headers: {
-            Authorization: `Bearer ${token}` // Attach token to headers
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
           }
         }
       );
       setBlogs(blogs.map(blog => (blog.id === selectedBlog.id ? { ...blog, ...formData } : blog)));
-      toast.success("This Blog Has Been Updated SuccessFully !")
+      toast.success("This Blog Has Been Updated Successfully!");
       setShowModal(false);
     } catch (error) {
       setError('Error updating blog. Please try again.');
@@ -134,14 +142,12 @@ const UpdateBlogScreen = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700 dark:text-gray-300 mb-2">Image URL</label>
+                  <label className="block text-gray-700 dark:text-gray-300 mb-2">Image</label>
                   <input
-                    type="text"
+                    type="file"
                     name="image"
-                    value={formData.image}
                     onChange={handleChange}
                     className="w-full border border-gray-300 dark:border-gray-700 p-2 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-                    required
                   />
                 </div>
                 <div className="mb-4">

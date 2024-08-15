@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const CreateBlogScreen = () => {
   const [title, setTitle] = useState('');
   const [image, setImage] = useState(null); // Change to null
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState(''); 
   const [slug, setSlug] = useState('');
   const [error, setError] = useState('');
   const [blogs, setBlogs] = useState([]);
