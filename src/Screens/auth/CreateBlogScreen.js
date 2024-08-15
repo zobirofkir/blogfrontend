@@ -17,7 +17,7 @@ const CreateBlogScreen = () => {
     // Fetch the list of blogs when the component mounts
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/blogs`, {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/auth/blogs`, {
           headers: {
             "Authorization": `Bearer ${token}`
           }

@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
+import { useLocation } from 'react-router-dom'; // Assuming you are using react-router
 import { SunIcon, MoonIcon } from '@heroicons/react/24/outline';
 
 const ThemeSwitcher = () => {
+  const location = useLocation();
+
   // Get initial theme state from cookies or default to 'light'
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = Cookies.get('theme');
-    return savedTheme === 'dark' || document.documentElement.classList.contains('dark');
+    return savedTheme === 'dark';
   });
 
   // Update theme class and cookie when `isDarkMode` changes
@@ -24,6 +27,11 @@ const ThemeSwitcher = () => {
   const toggleTheme = () => {
     setIsDarkMode(prevMode => !prevMode);
   };
+
+  // Don't render the switcher if the current path is /dashboard
+  if (location.pathname === '/dashboard') {
+    return null;
+  }
 
   return (
     <button

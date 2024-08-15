@@ -9,7 +9,7 @@ ChartJS.register(
   LinearScale,
   BarElement, 
   LineElement,
-  PointElement,
+  PointElement, // Register PointElement for Line chart
   Title,
   Tooltip,
   Legend
@@ -21,25 +21,28 @@ const DashboardScreen = () => {
   const [error, setError] = useState(null);
   const [blogs, setBlogs] = useState([]);
   const [selectedBlog, setSelectedBlog] = useState(null);
-  const [darkMode, setDarkMode] = useState(false); 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [darkMode, setDarkMode] = useState(false); // Dark mode state
+  const [currentPage, setCurrentPage] = useState(1); // Added state for current page
 
   const token = localStorage.getItem('access_token');
   const commentsPerPage = 5;
 
-  const handleBlog = async () => {
-    try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/blogs`);
-      setBlogs(response.data.data);
-    } catch (err) {
-      console.error('Error fetching blogs:', err);
-    }
-  };
-
+  // Function to fetch blogs
   useEffect(() => {
+    const handleBlog = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/auth/blogs`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setBlogs(response.data.data);
+      } catch (err) {
+        console.error('Error fetching blogs:', err);
+      }
+    };
     handleBlog();
-  }, []);
-
+  }, [token]);
+  
+  // Fetch user data when token changes
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -147,7 +150,7 @@ const DashboardScreen = () => {
       <div className={`flex flex-col items-center min-h-screen ${darkMode ? 'bg-gray-900' : 'bg-white'} transition-colors duration-500`}>
         <main className="flex-1 p-4 w-full max-w-7xl">
           <div className="flex justify-between items-center">
-            <h1 className="text-3xl font-bold dark:text-gray-500">Dashboard</h1>
+            <h1 className="text-3xl font-bold dark:text-white">Dashboard</h1>
             <button
               className="px-4 py-2 bg-gray-300 dark:bg-gray-700 dark:text-gray-500 rounded hover:bg-gray-400 dark:hover:bg-gray-600 transition"
               onClick={toggleDarkMode}
@@ -169,25 +172,25 @@ const DashboardScreen = () => {
             <p className="text-red-500">{error}</p>
           ) : user ? (
             <>
-              <p className="mt-2 text-lg dark:text-gray-500">Hello, {user.name}</p>
+              <p className="mt-2 text-lg dark:text-white">Hello, {user.name}</p>
               {/* Charts Section */}
               <div className="mt-8">
-                <h2 className="text-2xl font-semibold dark:text-gray-500">Analytics</h2>
+                <h2 className="text-2xl font-semibold dark:text-white">Analytics</h2>
                 <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
-                    <h3 className="text-xl font-semibold dark:text-gray-500">Chart 1</h3>
+                    <h3 className="text-xl font-semibold dark:text-white">Chart 1</h3>
                     <div className="mt-2">
                       <Line data={chartData1} options={chartOptions} />
                     </div>
                   </div>
                   <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
-                    <h3 className="text-xl font-semibold dark:text-gray-500">Chart 2</h3>
+                    <h3 className="text-xl font-semibold dark:text-white">Chart 2</h3>
                     <div className="mt-2">
                       <Bar data={chartData2} options={chartOptions} />
                     </div>
                   </div>
                   <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
-                    <h3 className="text-xl font-semibold dark:text-gray-500">Chart 3</h3>
+                    <h3 className="text-xl font-semibold dark:text-white">Chart 3</h3>
                     <div className="mt-2">
                       <Bar data={chartData3} options={chartOptions} />
                     </div>
@@ -197,7 +200,7 @@ const DashboardScreen = () => {
 
               {/* Blog Cards Section */}
               <div className="mt-8">
-                <h2 className="text-2xl font-semibold dark:text-gray-500">Blogs</h2>
+                <h2 className="text-2xl font-semibold dark:text-white">Blogs</h2>
                 <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {blogs.map((blog) => (
                     <div key={blog.id} className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md cursor-pointer" onClick={() => handleBlogClick(blog)}>
