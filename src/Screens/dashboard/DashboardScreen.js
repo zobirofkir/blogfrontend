@@ -3,6 +3,7 @@ import axios from 'axios';
 import HeaderComponent from '../../Components/auth/HeaderComponent';
 import { Line, Bar } from 'react-chartjs-2'; // Import the necessary chart types
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
+import FirstTimePopup from '../../Components/auth/FirstTimePopup';
 
 ChartJS.register(
   CategoryScale,
@@ -26,6 +27,22 @@ const DashboardScreen = () => {
 
   const token = localStorage.getItem('access_token');
   const commentsPerPage = 5;
+  const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    const isfirstTimeVisitDashboard = localStorage.getItem("firstTimeVisitDashboard");
+    if (!isfirstTimeVisitDashboard) {
+      setShowPopup(true);
+      localStorage.setItem("firstTimeVisitDashboard", "true");
+    }
+  }, []);
+
+
+  const closePopup = () => {
+    setShowPopup(false);
+  };
+
+
 
   // Function to fetch blogs
   useEffect(() => {
@@ -146,6 +163,7 @@ const DashboardScreen = () => {
 
   return (
     <>
+      {showPopup && <FirstTimePopup onClose={closePopup} user={user}/>}
       <HeaderComponent />
       <div className={`flex flex-col items-center min-h-screen ${darkMode ? 'bg-gray-900' : 'bg-white'} transition-colors duration-500`}>
         <main className="flex-1 p-4 w-full max-w-7xl">

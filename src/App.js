@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LayoutComponent from './Layout/LayoutComponent';
 
@@ -15,10 +15,28 @@ import CreateBlogScreen from './Screens/auth/CreateBlogScreen';
 import UpdateBlogScreen from './Screens/auth/UpdateBlogScreen';
 import CreateUserScreen from './Screens/auth/CreateUserScreen';
 import UpdateUserScreen from './Screens/auth/UpdateUserScreen';
+import FirstTimePopup from './Components/FirstTimePopup';
 
 const App = () => {
+
+  const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    const isFirstVisit = localStorage.getItem("firstVisit");
+    if (!isFirstVisit) {
+      setShowPopup(true);
+      localStorage.setItem("firstVisit", "true");
+    }
+  }, []);
+
+
+  const closePopup = () => {
+    setShowPopup(false);
+  };
+
   return (
     <Router>
+      {showPopup && <FirstTimePopup onClose={closePopup} />}
       <LayoutComponent>
         <Routes>
           <Route path="/" element={<HomeScreen />} />
