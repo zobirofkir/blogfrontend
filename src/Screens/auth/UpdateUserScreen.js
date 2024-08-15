@@ -33,7 +33,7 @@ const UpdateUserScreen = () => {
         setUsers(allUsers);
       } catch (error) {
         console.error("Error fetching users:", error);
-        toast.error("You Don't Have Access.");
+        toast.error("You are not authorized to access this resource !");
       }
     };
 
