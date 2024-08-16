@@ -1,11 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import ModalComponent from '../Components/ModalComponent'; // Ensure this path is correct
 import axios from 'axios';
+import ProductModal from '../Components/ProductModal';
 
 const HomeScreen = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [blogs, setBlogs] = useState([]); // Corrected variable name
+  const [products, setProducts] = useState([]);
+  const [isProductOpen, setIsProductOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const handleProducts = async () => {
+    const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/products`)
+    setProducts(response.data.data)
+  }
+  
+  
+
+  useEffect(() => {
+    handleProducts()
+  }, [products])
 
   const openModal = (blog) => {
     console.log("Opening modal for blog:", blog); // Debug log
@@ -18,6 +33,19 @@ const HomeScreen = () => {
     setIsModalOpen(false);
     setSelectedBlog(null);
   };
+
+
+  const openProduct = (product) => {
+    setSelectedProduct(product);
+    setIsProductOpen(true);
+  };
+
+  const closeProduct = () => {
+    console.log("Closing Product"); // Debug log
+    setIsProductOpen(false);
+    setSelectedProduct(null);
+  };
+
 
   const fetchData = async () => {
     try {
@@ -65,19 +93,19 @@ const HomeScreen = () => {
         ))}
       </div>
 
-      {/* Latest Blog Posts Section */}
+      {/* My Products */}
       <div className="container mx-auto px-4 py-12">
-        <h2 className="text-3xl font-bold text-center mb-8">Latest Blog Posts</h2>
+        <h2 className="md:text-3xl text-sm whitespace-nowrap font-bold text-center mb-8">Download Free Websites And Mobile App Templates</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogs.map((blog) => (
-            <div key={blog.id} className="bg-white p-6 rounded-lg shadow-md dark:bg-gray-800 dark:text-white">
-              <img src={blog.image} alt={blog.title} className="w-full h-48 object-cover rounded-md mb-4" />
-              <h3 className="text-xl font-semibold mb-2">{blog.title}</h3>
+          {products.map((product) => (
+            <div key={product.id} className="bg-white p-6 rounded-lg shadow-md dark:bg-gray-800 dark:text-white">
+              <img src={product.thumbnail} alt={product.name} className="w-full h-48 object-cover rounded-md mb-4" />
+              <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
               <p className="text-gray-700 dark:text-gray-300 mb-4">
-                {blog.description.substring(0, 100)}...
+                {product.description.substring(0, 100)}...
               </p>
               <button
-                onClick={() => openModal(blog)}
+                onClick={() => openProduct(product)}
                 className="text-blue-500 font-semibold hover:underline dark:text-blue-400"
               >
                 Read More
@@ -88,7 +116,9 @@ const HomeScreen = () => {
       </div>
 
       {/* Modal Component */}
-      {isModalOpen && <ModalComponent isOpen={isModalOpen} onClose={closeModal} blog={selectedBlog} />}
+      {isModalOpen && <ModalComponent isOpen={isModalOpen} onClose={closeModal} blog={selectedBlog} />} 
+      {/* Product Component */}
+      {isProductOpen && <ProductModal isOpen={isProductOpen} onClose={closeProduct} product={selectedProduct} />} 
     </div>
   );
 };

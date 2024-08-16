@@ -6,12 +6,15 @@ import ThemeSwitcher from '../../Components/ThemeSwitcher';
 const SidebarComponent = ({ isOpen, toggleSidebar, user, handleLogout }) => {
   const [showBlogActions, setShowBlogActions] = useState(false);
   const [showUserActions, setShowUserActions] = useState(false);
+  const [showProductActions, setShowProductActions] = useState(false);
   const navigate = useNavigate();
 
   const handleBlogCreate = () => navigate("/create-blog");
   const handleBlogUpdate = () => navigate("/update-blog");
   const handleUserUpdate = () => navigate('/update-user');
   const handleUserCreate = () => navigate('/create-user');
+  const handleProductCreate = () => navigate('/create-product');
+  const handleProductUpdate = () => navigate('/update-product')
 
   return (
     <div
@@ -88,7 +91,45 @@ const SidebarComponent = ({ isOpen, toggleSidebar, user, handleLogout }) => {
             </div>
           </div>
         </div>
+
+
+
+        {/* Product Management */}
+        <div className='-mt-20'>
+          <button
+            onClick={() => setShowProductActions(!showProductActions)}
+            className="text-white p-3 rounded-lg w-full text-left bg-blue-800 hover:bg-blue-700 flex items-center justify-between"
+          >
+            <span>Product</span>
+            <svg className={`w-4 h-4 transform ${showProductActions ? 'rotate-180' : 'rotate-0'} transition-transform`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          {/* Drop-down User Actions */}
+          <div
+            className={`mt-2 bg-gray-700 text-white transition-transform ${showProductActions ? 'scale-100' : 'scale-0'} origin-top-left`}
+            style={{ width: '16rem', transition: 'transform 0.3s ease-in-out' }}
+          >
+            <div className="p-4">
+              <button
+                className="block w-full p-3 mb-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors"
+                onClick={handleProductCreate}
+              >
+                Create Product
+              </button>
+              <button
+                className="block w-full p-3 bg-yellow-500 hover:bg-yellow-600 rounded-lg transition-colors"
+                onClick={handleProductUpdate}
+              >
+                Update Product
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
+
+
+      
 
       {/* User Info, Logout, and ThemeSwitcher */}
       <div className="p-4 bg-gray-700">

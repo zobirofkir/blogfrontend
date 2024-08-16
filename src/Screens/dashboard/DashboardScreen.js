@@ -22,8 +22,10 @@ const DashboardScreen = () => {
   const [error, setError] = useState(null);
   const [blogs, setBlogs] = useState([]);
   const [selectedBlog, setSelectedBlog] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const [darkMode, setDarkMode] = useState(false); // Dark mode state
   const [currentPage, setCurrentPage] = useState(1); // Added state for current page
+  const [products, setProducts] = useState([]);
 
   const token = localStorage.getItem('access_token');
   const commentsPerPage = 5;
@@ -44,7 +46,6 @@ const DashboardScreen = () => {
 
 
 
-  // Function to fetch blogs
   useEffect(() => {
     const handleBlog = async () => {
       try {
@@ -58,6 +59,21 @@ const DashboardScreen = () => {
     };
     handleBlog();
   }, [token]);
+
+  useEffect(() => {
+    const handleProducts = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/auth/products`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setProducts(response.data.data);
+      } catch (err) {
+        console.error('Error fetching products:', err);
+      }
+    };
+    handleProducts();
+  }, [token]);
+
   
   // Fetch user data when token changes
   useEffect(() => {
@@ -87,9 +103,18 @@ const DashboardScreen = () => {
     setSelectedBlog(blog);
   };
 
+  const handleProductClick = (product) => {
+    setSelectedProduct(product);
+  };
+
   // Handle close popup
   const handleClosePopup = () => {
     setSelectedBlog(null);
+  };
+
+  // Handle close popup
+  const handleCloseProduct = () => {
+    setSelectedProduct(null);
   };
 
   // Toggle dark mode
@@ -224,7 +249,7 @@ const DashboardScreen = () => {
                     <div key={blog.id} className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md cursor-pointer" onClick={() => handleBlogClick(blog)}>
                       <img src={blog.image} alt={blog.title} className="w-full h-48 object-cover rounded-md" />
                       <h3 className="text-xl font-semibold mt-4 dark:text-gray-500">{blog.title}</h3>
-                      <p className="mt-2 dark:text-gray-400">{blog.description}</p>
+                      <p className="mt-2 dark:text-gray-400">{blog.description.substring(0, 100)}</p>
                     </div>
                   ))}
                 </div>
@@ -288,6 +313,69 @@ const DashboardScreen = () => {
           ) : (
             <p className="dark:text-gray-500">No user data available.</p>
           )}
+
+          {/* Product Cards Section */}
+          <div className="mt-8">
+            <h2 className="text-2xl font-semibold dark:text-white">Products</h2>
+            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {products.map((product) => (
+                <div key={product.id} className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md cursor-pointer" onClick={() => handleProductClick(product)}>
+                  <img src={product.thumbnail} alt={product.name} className="w-full h-48 object-cover rounded-md" />
+                  <h3 className="text-xl font-semibold mt-4 dark:text-gray-500">{product.name}</h3>
+                  <h5 className="text-md font-semibold mt-4 dark:text-gray-500">{product.price} MAD</h5>
+                  <p className="mt-2 dark:text-gray-400">{product.description.substring(0, 100)} ...</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {selectedProduct && (
+              <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 overflow-y-auto">
+                <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-3xl h-auto max-h-full overflow-y-auto relative">
+                  <button
+                    className="absolute top-2 right-2 text-gray-600 dark:text-gray-400"
+                    onClick={handleCloseProduct}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                  <h3 className="md:text-3xl text-xl font-semibold dark:text-gray-500 text-center">
+                    {selectedProduct.name}
+                  </h3>
+                  <div className="flex justify-center">
+                    <img
+                      src={selectedProduct.thumbnail}
+                      alt={selectedProduct.name}
+                      className="md:w-1/2 md:h-1/2 w-full h-full md:mt-10 mt-28 object-cover rounded-md"
+                    />
+                  </div>
+                  <p className="mt-10 dark:text-gray-400 text-center">{selectedProduct.price} MAD</p>
+                  <div className="mt-2 text-center dark:text-gray-400 text-sm md:text-base lg:text-lg xl:text-xl">
+                    {selectedProduct.description}
+                  </div>
+                  <div className="flex justify-center mt-6">
+                    <a href={selectedProduct.file_path} target="__blank">
+                      <button className="bg-gray-600 text-white py-2 px-4 rounded-lg shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                        Download
+                      </button>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            )}
+
         </main>
       </div>
     </>

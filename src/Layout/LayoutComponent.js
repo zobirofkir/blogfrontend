@@ -17,12 +17,16 @@ const LayoutComponent = ({ children }) => {
   const isUpdateBlogRoute = location.pathname.startsWith('/update');
   const isCreateUserRoute = location.pathname === '/create-user';
   const isUpdateUserRoute = location.pathname === '/update-user';
+  
+  const isCreateProductRoute = location.pathname === '/create-product';
+  const isUpdateProductRoute = location.pathname === '/update-product';
 
-  const isSidebarVisible = !isDashboardRoute && !isCreateBlogRoute && !isUpdateBlogRoute && !isCreateUserRoute;
+
+  const isSidebarVisible = !isDashboardRoute && !isCreateBlogRoute && !isUpdateBlogRoute && !isCreateUserRoute && !isUpdateProductRoute && !isCreateProductRoute;
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {!isDashboardRoute && !isCreateBlogRoute && !isUpdateBlogRoute && !isCreateUserRoute && <HeaderComponent />}
+    <div className="flex flex-col min-h-screen dark:bg-gray-900 bg-white">
+      {!isDashboardRoute && !isCreateBlogRoute && !isUpdateBlogRoute && !isCreateUserRoute && !isCreateProductRoute && !isUpdateProductRoute &&<HeaderComponent />}
       <div className="flex flex-1">
         {isSidebarVisible && (
           <SidebarComponent
@@ -38,7 +42,7 @@ const LayoutComponent = ({ children }) => {
           {children}
         </main>
       </div>
-      {!isDashboardRoute && !isCreateBlogRoute && !isUpdateBlogRoute && !isCreateUserRoute && !isUpdateUserRoute && <FooterComponent />}
+      {!isDashboardRoute && !isCreateBlogRoute && !isUpdateBlogRoute && !isCreateUserRoute && !isUpdateUserRoute && !!isUpdateProductRoute && !isCreateProductRoute &&<FooterComponent />}
     </div>
   );
 };

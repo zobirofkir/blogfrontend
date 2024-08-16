@@ -152,13 +152,12 @@ const CreateBlogScreen = () => {
         </div>
 
         <div className="mt-8">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Blog List</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
             {blogs.map(blog => (
               <div key={blog.id} className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{blog.title}</h3>
                 <img src={blog.image} alt={blog.title} className="mt-2 w-full h-40 object-cover rounded-lg" />
-                <p className="mt-2 text-gray-700 dark:text-gray-300">{blog.description}</p>
+                <p className="mt-2 text-gray-700 dark:text-gray-300">{blog.description?.substring(0, 100)}</p>
                 <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{blog.slug}</p>
                 <button 
                   onClick={() => handleDelete(blog.slug)} 
