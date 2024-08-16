@@ -95,7 +95,10 @@ const HomeScreen = () => {
 
       {/* My Products */}
       <div className="container mx-auto px-4 py-12">
-        <h2 className="md:text-3xl text-sm whitespace-nowrap font-bold text-center mb-8">Download Free Websites And Mobile App Templates</h2>
+      <h2 className="text-sm md:text-3xl font-bold text-center mb-8 whitespace-nowrap">
+        Download Free Website Templates and Games
+      </h2>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map((product) => (
             <div key={product.id} className="bg-white p-6 rounded-lg shadow-md dark:bg-gray-800 dark:text-white">
