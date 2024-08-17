@@ -92,7 +92,7 @@ const UpdateProjectScreen = () => {
       setProjects(projects.map(project =>
         (project.id === selectedProject.id ? { ...project, ...formData, image: URL.createObjectURL(image) } : project)
       ));
-      toast.success("Product updated successfully!");
+      toast.success("Project updated successfully!");
       setShowModal(false);
     } catch (error) {
       setError('Error updating project. Please try again.');
@@ -108,7 +108,7 @@ const UpdateProjectScreen = () => {
       <ToastContainer />
       <HeaderComponent />
       <div className="p-4 md:p-6 dark:bg-black min-h-screen">
-        <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Update Products</h1>
+        <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Update Projects</h1>
 
         <div className="space-y-4">
           {projects.map(project => (
@@ -140,7 +140,7 @@ const UpdateProjectScreen = () => {
         {showModal && (
           <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
             <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg w-full max-w-lg">
-              <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Update Product</h2>
+              <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Update Project</h2>
               {error && <p className="text-red-600 mb-4">{error}</p>}
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
@@ -190,7 +190,7 @@ const UpdateProjectScreen = () => {
                     className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
                     disabled={loading}
                   >
-                    {loading ? 'Updating...' : 'Update Product'}
+                    {loading ? 'Updating...' : 'Update Project'}
                   </button>
                   <button
                     type="button"
