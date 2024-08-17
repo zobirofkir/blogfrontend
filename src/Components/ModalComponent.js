@@ -22,7 +22,7 @@ const ModalComponent = ({ isOpen, onClose, blog }) => {
   };
 
   const handleNavigateToDetails = () => {
-    navigate(`/details/${blog.slug}`);
+    navigate(`/${blog.slug}`);
     onClose();
   };
 
