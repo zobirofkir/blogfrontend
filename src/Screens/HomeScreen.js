@@ -18,7 +18,7 @@ const HomeScreen = () => {
 
 
   const handleProducts = async () => {
-    const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/projects`)
+    const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/products`)
     setProducts(response.data.data)
   }
   
