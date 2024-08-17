@@ -13,10 +13,16 @@ const FooterComponent = () => {
         </div>
         <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 dark:text-gray-400 space-x-4">
           <li>
-            <a href="/about" className="hover:underline">About</a>
+            <a href="/abouts" className="hover:underline">About</a>
           </li>
           <li>
-            <a href="/blog" className="hover:underline">Blog</a>
+            <a href="/blogs" className="hover:underline">Blog</a>
+          </li>
+          <li>
+            <a href="/products" className="hover:underline">Product</a>
+          </li>
+          <li>
+            <a href="/projects" className="hover:underline">Project</a>
           </li>
           <li>
             <a href="/contacts" className="hover:underline">Contact</a>
