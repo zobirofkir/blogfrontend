@@ -133,7 +133,7 @@ const HomeScreen = () => {
             <div key={product.id} className="bg-white p-6 rounded-lg shadow-md dark:bg-gray-800 dark:text-white">
               <img src={product.thumbnail} alt={product.name} className="w-full h-48 object-cover rounded-md mb-4" />
               <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
-              <p className="text-gray-700 dark:text-gray-300 mb-4">
+              <p className="text-gray-700 dark:text-gray-300 mb-4 overflow-hidden">
                 {product.description.substring(0, 100)}...
               </p>
               <button
@@ -158,7 +158,7 @@ const HomeScreen = () => {
             <div key={project.id} className="bg-white p-6 rounded-lg shadow-md dark:bg-gray-800 dark:text-white">
               <img src={project.image} alt={project.title} className="w-full h-48 object-cover rounded-md mb-4" />
               <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-              <p className="text-gray-700 dark:text-gray-300 mb-4">
+              <p className="text-gray-700 dark:text-gray-300 mb-4 overflow-hidden">
                 {project.description.substring(0, 100)}...
               </p>
               <button
