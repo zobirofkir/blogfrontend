@@ -19,6 +19,9 @@ import FirstTimePopup from './Components/FirstTimePopup';
 import CreateProductScreen from './Screens/auth/CreateProductScreen'
 import UpdateProductScreen from './Screens/auth/UpdateProductScreen'
 import ProductScreen from './Screens/ProductScreen'
+import CreateProjectScreen from './Screens/auth/CreateProjectScreen';
+import UpdateProjectScreen from './Screens/auth/UpdateProjectScreen';
+import ProjectScreen from './Screens/ProjectScreen';
 
 const App = () => {
 
@@ -49,6 +52,7 @@ const App = () => {
           <Route path='details/:slug' element={<DetailsScreen />} />
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/products" element={<ProductScreen />} />
+          <Route path="/projects" element={<ProjectScreen />} />
 
           <Route path="/dashboard" element={<ProtectedRoute element={<DashboardScreen />} />} />
           <Route path="/create-blog" element={<ProtectedRoute element={<CreateBlogScreen />} />} />
@@ -57,6 +61,8 @@ const App = () => {
           <Route path="/update-user" element={<ProtectedRoute element={<UpdateUserScreen />} />} />
           <Route path="/create-product" element={<ProtectedRoute element={<CreateProductScreen />} />} />
           <Route path="/update-product" element={<ProtectedRoute element={<UpdateProductScreen />} />} />
+          <Route path="/create-project" element={<ProtectedRoute element={<CreateProjectScreen />} />} />
+          <Route path="/update-project" element={<ProtectedRoute element={<UpdateProjectScreen />} />} />
         </Routes>
       </LayoutComponent>
     </Router>

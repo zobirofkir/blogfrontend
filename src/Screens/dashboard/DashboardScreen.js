@@ -23,9 +23,11 @@ const DashboardScreen = () => {
   const [blogs, setBlogs] = useState([]);
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
   const [darkMode, setDarkMode] = useState(false); // Dark mode state
   const [currentPage, setCurrentPage] = useState(1); // Added state for current page
   const [products, setProducts] = useState([]);
+  const [projects, setProjects] = useState([]);
 
   const token = localStorage.getItem('access_token');
   const commentsPerPage = 5;
@@ -74,6 +76,21 @@ const DashboardScreen = () => {
     handleProducts();
   }, [token]);
 
+
+  useEffect(() => {
+    const handleProjects = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/auth/projects`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setProjects(response.data.data);
+      } catch (err) {
+        console.error('Error fetching products:', err);
+      }
+    };
+    handleProjects();
+  }, [token]);
+
   
   // Fetch user data when token changes
   useEffect(() => {
@@ -107,14 +124,23 @@ const DashboardScreen = () => {
     setSelectedProduct(product);
   };
 
+  const handleProjectClick = (product) => {
+    setSelectedProject(product);
+  };
+
+
   // Handle close popup
   const handleClosePopup = () => {
     setSelectedBlog(null);
   };
 
-  // Handle close popup
   const handleCloseProduct = () => {
-    setSelectedProduct(null);
+    setSelectedProduct(null)
+  }
+
+  // Handle close popup
+  const handleCloseProject = () => {
+    setSelectedProject(null);
   };
 
   // Toggle dark mode
@@ -375,6 +401,68 @@ const DashboardScreen = () => {
                 </div>
               </div>
             )}
+
+
+          {/* Project Cards Section */}
+          <div className="mt-8">
+            <h2 className="text-2xl font-semibold dark:text-white">Project</h2>
+            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {projects.map((project) => (
+                <div key={project.id} className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md cursor-pointer" onClick={() => handleProjectClick(project)}>
+                  <img src={project.image} alt={project.title} className="w-full h-48 object-cover rounded-md" />
+                  <h3 className="text-xl font-semibold mt-4 dark:text-gray-500">{project.title}</h3>
+                  <p className="mt-2 dark:text-gray-400">{project.description.substring(0, 100)} ...</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {selectedProject && (
+              <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 overflow-y-auto">
+                <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-3xl h-auto max-h-full overflow-y-auto relative">
+                  <button
+                    className="absolute top-2 right-2 text-gray-600 dark:text-gray-400"
+                    onClick={handleCloseProject}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                  <h3 className="md:text-3xl text-xl font-semibold dark:text-gray-500 text-center">
+                    {selectedProject.title}
+                  </h3>
+                  <div className="flex justify-center">
+                    <img
+                      src={selectedProject.image}
+                      alt={selectedProject.title}
+                      className="md:w-1/2 md:h-1/2 w-full h-full md:mt-10 mt-28 object-cover rounded-md"
+                    />
+                  </div>
+                  <div className="mt-2 text-center dark:text-gray-400 text-sm md:text-base lg:text-lg xl:text-xl">
+                    {selectedProject.description}
+                  </div>
+                  <div className="flex justify-center mt-6">
+                    <a href={selectedProject.filePath} target="__blank">
+                      <button className="bg-gray-600 text-white py-2 px-4 rounded-lg shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                        Download
+                      </button>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            )}
+
 
         </main>
       </div>

@@ -78,6 +78,14 @@ const SidebarComponent = ({ isSidebarOpen, toggleSidebar }) => {
               </li>
               <li>
                 <a
+                  href="/projects"
+                  className="block py-2 px-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                >
+                  Project
+                </a>
+              </li>
+              <li>
+                <a
                   href="/contacts"
                   className="block py-2 px-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                 >

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ModalComponent from '../Components/ModalComponent'; // Ensure this path is correct
 import axios from 'axios';
 import ProductModal from '../Components/ProductModal';
+import ProjectModalComponent from '../Components/ProjectModalComponent';
 
 const HomeScreen = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -11,16 +12,33 @@ const HomeScreen = () => {
   const [isProductOpen, setIsProductOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
+  const [projects, setProjects] = useState([]);
+  const [isProjectOpen, setIsProjectOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+
+
   const handleProducts = async () => {
-    const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/products`)
+    const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/projects`)
     setProducts(response.data.data)
   }
-  
   
 
   useEffect(() => {
     handleProducts()
-  }, [products])
+  }, [projects])
+
+
+  const handleProjects = async () => {
+    const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/projects`)
+    setProjects(response.data.data)
+  }
+  
+
+  useEffect(() => {
+    handleProjects()
+  }, [projects])
+
+
 
   const openModal = (blog) => {
     console.log("Opening modal for blog:", blog); // Debug log
@@ -33,8 +51,7 @@ const HomeScreen = () => {
     setIsModalOpen(false);
     setSelectedBlog(null);
   };
-
-
+  
   const openProduct = (product) => {
     setSelectedProduct(product);
     setIsProductOpen(true);
@@ -44,6 +61,18 @@ const HomeScreen = () => {
     console.log("Closing Product"); // Debug log
     setIsProductOpen(false);
     setSelectedProduct(null);
+  };
+
+
+  const openProject = (project) => {
+    setSelectedProject(project);
+    setIsProjectOpen(true);
+  };
+
+  const closeProject = () => {
+    console.log("Closing Project"); // Debug log
+    setIsProjectOpen(false);
+    setSelectedProject(null);
   };
 
 
@@ -118,10 +147,37 @@ const HomeScreen = () => {
         </div>
       </div>
 
+      {/* My Projects */}
+      <div className="container mx-auto px-4 py-12">
+      <h2 className="text-sm md:text-3xl font-bold text-center mb-8 whitespace-nowrap">
+        Download Free Web & App Development Projects
+      </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project) => (
+            <div key={project.id} className="bg-white p-6 rounded-lg shadow-md dark:bg-gray-800 dark:text-white">
+              <img src={project.image} alt={project.title} className="w-full h-48 object-cover rounded-md mb-4" />
+              <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
+              <p className="text-gray-700 dark:text-gray-300 mb-4">
+                {project.description.substring(0, 100)}...
+              </p>
+              <button
+                onClick={() => openProject(project)}
+                className="text-blue-500 font-semibold hover:underline dark:text-blue-400"
+              >
+                Read More
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Modal Component */}
       {isModalOpen && <ModalComponent isOpen={isModalOpen} onClose={closeModal} blog={selectedBlog} />} 
       {/* Product Component */}
       {isProductOpen && <ProductModal isOpen={isProductOpen} onClose={closeProduct} product={selectedProduct} />} 
+      {/* Project Component */}
+      {isProjectOpen && <ProjectModalComponent isOpen={isProjectOpen} onClose={closeProject} project={selectedProject} />} 
     </div>
   );
 };
