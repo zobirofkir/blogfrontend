@@ -72,7 +72,7 @@ const BlogScreen = () => {
                   className="bg-white p-6 rounded-lg shadow-md dark:bg-gray-800 dark:text-white hover:shadow-lg transition-shadow duration-300"
                 >
                   <img
-                    src={blog.image || '/path/to/default/image.jpg'} // Use default image if not provided
+                    src={blog.image || 'https://i.gifer.com/35LA.gif'}
                     alt={blog.title || 'Blog Post'} // Use default alt text if title is missing
                     className="w-full h-48 object-cover rounded-md mb-4"
                   />

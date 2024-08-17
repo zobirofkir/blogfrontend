@@ -107,7 +107,9 @@ const HomeScreen = () => {
       <div className="container mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
         {blogs.map((blog) => (
           <div key={blog.id} className="bg-white p-6 rounded-lg shadow-md dark:bg-gray-800 dark:text-white">
-            <img src={blog.image} alt={blog.title} className="w-full h-48 object-cover rounded-md mb-4" />
+            <img 
+            src={blog.image || 'https://i.gifer.com/35LA.gif'} // Ensure default image path is correct
+            alt={blog.title} className="w-full h-48 object-cover rounded-md mb-4" />
             <h3 className="text-xl font-semibold mb-2">{blog.title}</h3>
             <p className="text-gray-700 dark:text-gray-300 mb-4">
               {blog.description.substring(0, 100)}...
@@ -156,7 +158,11 @@ const HomeScreen = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => (
             <div key={project.id} className="bg-white p-6 rounded-lg shadow-md dark:bg-gray-800 dark:text-white">
-              <img src={project.image} alt={project.title} className="w-full h-48 object-cover rounded-md mb-4" />
+              <img 
+              src={project.image} 
+              alt={project.title} 
+              className="w-full h-48 object-cover rounded-md mb-4"
+              />
               <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
               <p className="text-gray-700 dark:text-gray-300 mb-4 overflow-hidden">
                 {project.description.substring(0, 100)}...
