@@ -349,7 +349,7 @@ const DashboardScreen = () => {
                   <img src={product.thumbnail} alt={product.name} className="w-full h-48 object-cover rounded-md" />
                   <h3 className="text-xl font-semibold mt-4 dark:text-gray-500">{product.name}</h3>
                   <h5 className="text-md font-semibold mt-4 dark:text-gray-500">{product.price} MAD</h5>
-                  <p className="mt-2 dark:text-gray-400">{product.description.substring(0, 100)} ...</p>
+                  <p className="mt-2 dark:text-gray-400 overflow-hidden">{product.description.substring(0, 100)} ...</p>
                 </div>
               ))}
             </div>
@@ -411,7 +411,7 @@ const DashboardScreen = () => {
                 <div key={project.id} className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md cursor-pointer" onClick={() => handleProjectClick(project)}>
                   <img src={project.image} alt={project.title} className="w-full h-48 object-cover rounded-md" />
                   <h3 className="text-xl font-semibold mt-4 dark:text-gray-500">{project.title}</h3>
-                  <p className="mt-2 dark:text-gray-400">{project.description.substring(0, 100)} ...</p>
+                  <p className="mt-2 dark:text-gray-400 overflow-hidden">{project.description.substring(0, 100)} ...</p>
                 </div>
               ))}
             </div>
