@@ -71,7 +71,7 @@ const ProjectScreen = () => {
                   className="bg-white p-6 rounded-lg shadow-md dark:bg-gray-800 dark:text-white hover:shadow-lg transition-shadow duration-300"
                 >
                   <img
-                    src={project.thumbnail || 'https://i.gifer.com/35LA.gif'} // Ensure default image path is correct
+                    src={project.image || 'https://i.gifer.com/35LA.gif'} // Ensure default image path is correct
                     alt={project.name || 'Project Image'} // Use project name if available
                     className="w-full h-48 object-cover rounded-md mb-4"
                   />

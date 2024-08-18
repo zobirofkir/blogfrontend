@@ -32,7 +32,7 @@ const ProjectModalComponent = ({ isOpen, onClose, project }) => {
           <h2 className="text-2xl sm:text-3xl font-bold mb-4 dark:text-white">{project.title}</h2>
           <div className="flex justify-center mb-6">
             <img
-              src={project.thumbnail || 'https://i.gifer.com/35LA.gif'} // Ensure default image path is correct
+              src={project.image || 'https://i.gifer.com/35LA.gif'} // Ensure default image path is correct
               alt={project.title}
               className="w-full sm:w-3/4 md:w-1/2 h-auto object-cover rounded-md"
             />
