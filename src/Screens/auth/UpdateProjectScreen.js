@@ -17,6 +17,7 @@ const UpdateProjectScreen = () => {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [uploadProgress, setUploadProgress] = useState(0);
   const token = localStorage.getItem('access_token'); // Retrieve token from local storage
 
   useEffect(() => {
@@ -51,13 +52,23 @@ const UpdateProjectScreen = () => {
 
   // Handle form input change
   const handleChange = (e) => {
-    const { title, value } = e.target;
-    setFormData(prevData => ({
-      ...prevData,
-      [title]: value
-    }));
+    const { name, value, files } = e.target;
+  
+    if (e.target.type === "file") {
+      // For file inputs, store the selected file
+      setFormData(prevData => ({
+        ...prevData,
+        [name]: files[0], // Store the file object
+      }));
+    } else {
+      // For text inputs, store the text value
+      setFormData(prevData => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
-
+  
   // Handle image file change
   const handleFileChange = (e) => {
     setImage(e.target.files[0]);
@@ -86,7 +97,12 @@ const UpdateProjectScreen = () => {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data' // Set header for file upload
+          },
+          onUploadProgress: (progressEvent) => {
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+            setUploadProgress(progress);
           }
+  
         }
       );
       setProjects(projects.map(project =>
@@ -94,6 +110,7 @@ const UpdateProjectScreen = () => {
       ));
       toast.success("Project updated successfully!");
       setShowModal(false);
+      setUploadProgress(0);
     } catch (error) {
       setError('Error updating project. Please try again.');
       console.error("Error updating project:", error);
@@ -176,9 +193,8 @@ const UpdateProjectScreen = () => {
                 <div className="mb-4">
                   <label className="block text-gray-700 dark:text-gray-300 mb-2">Filepath</label>
                   <input
-                    type="text"
+                    type="file"
                     title="filePath"
-                    value={formData.filePath}
                     onChange={handleChange}
                     className="w-full border border-gray-300 dark:border-gray-700 p-2 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                     required
@@ -201,6 +217,15 @@ const UpdateProjectScreen = () => {
                   </button>
                 </div>
               </form>
+              {uploadProgress > 0 && (
+                <div className="mt-4">
+                  <p className="text-gray-900 dark:text-white">Upload Progress: {uploadProgress}%</p>
+                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                    <div className="bg-indigo-600 h-2.5 rounded-full" style={{ width: `${uploadProgress}%` }}></div>
+                  </div>
+                </div>
+              )}
+
             </div>
           </div>
         )}

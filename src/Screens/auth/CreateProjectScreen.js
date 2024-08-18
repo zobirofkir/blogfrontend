@@ -11,6 +11,7 @@ const CreateProjectScreen = () => {
   const [filePath, setFilePath] = useState(null); 
   const [error, setError] = useState('');
   const [projects, setProjects] = useState([]);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const token = localStorage.getItem('access_token');
 
   useEffect(() => {
@@ -54,6 +55,10 @@ const CreateProjectScreen = () => {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "multipart/form-data"
+        },
+        onUploadProgress: (progressEvent) => {
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          setUploadProgress(progress);
         }
       });
 
@@ -67,6 +72,7 @@ const CreateProjectScreen = () => {
       setImage(null);
       setDescription('');
       setFilePath(null);
+      setUploadProgress(0); // Reset progress after upload
     } catch (err) {
       setError('Error creating project');
       console.error(err);
@@ -146,6 +152,14 @@ const CreateProjectScreen = () => {
               Create Project
             </button>
           </form>
+          {uploadProgress > 0 && (
+            <div className="mt-4">
+              <p className="text-gray-900 dark:text-white">Upload Progress: {uploadProgress}%</p>
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                <div className="bg-indigo-600 h-2.5 rounded-full" style={{ width: `${uploadProgress}%` }}></div>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="mt-8">
