@@ -1,9 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const ProjectModalComponent = ({ isOpen, onClose, project }) => {
+  const navigate = useNavigate(); // Initialize useNavigate
 
   if (!isOpen) return null;
+
+  const handleRedirect = () => {
+    navigate(`/project-info/${project.slug}`); // Redirect to ProjectInfoScreen with the slug
+  };
 
   return ReactDOM.createPortal(
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -38,9 +44,24 @@ const ProjectModalComponent = ({ isOpen, onClose, project }) => {
             />
           </div>
           <p className="text-gray-700 dark:text-gray-300">{project.description}</p>
-          <div className='flex justify-center mt-5'>
-            <a href={project.filePath} target='__blank' className='dark:bg-white bg-black px-10 py-2 rounded-full'>Download</a>  
-          </div>        
+          <div className="flex justify-center mt-5">
+            <a
+              href={project.filePath}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="dark:bg-white bg-black px-10 py-2 rounded-full dark:text-black text-white"
+            >
+              Download
+            </a>
+          </div>
+          <div className="flex justify-center mt-5">
+            <button
+              onClick={handleRedirect}
+              className="dark:bg-white bg-black px-10 py-2 rounded-full dark:text-black text-white"
+            >
+              View Full Info
+            </button>
+          </div>
         </div>
       </div>
     </div>,

@@ -1,9 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const ProductModal = ({ isOpen, onClose, product }) => {
+  const navigate = useNavigate(); // Initialize useNavigate
 
   if (!isOpen) return null;
+
+  const handleRedirect = () => {
+    navigate(`/product-info/${product.slug}`); // Redirect to ProductInfoScreen with the slug
+  };
 
   return ReactDOM.createPortal(
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -32,16 +38,31 @@ const ProductModal = ({ isOpen, onClose, product }) => {
           <h2 className="text-2xl sm:text-3xl font-bold mb-4 dark:text-white">{product.name}</h2>
           <div className="flex justify-center mb-6">
             <img
-              src={product.thumbnail}
+              src={product.thumbnail || 'https://i.gifer.com/35LA.gif'} // Ensure default image path is correct
               alt={product.name}
               className="w-full sm:w-3/4 md:w-1/2 h-auto object-cover rounded-md"
             />
           </div>
-          <h3 className='dark:text-white text-black font-bold p-5'>price {product.price} MAD</h3>
+          <h3 className='dark:text-white text-black font-bold p-5'>Price: {product.price} MAD</h3>
           <p className="text-gray-700 dark:text-gray-300">{product.description}</p>
-          <div className='flex justify-center mt-5'>
-            <a href={product.file_path} target='__blank' className='dark:bg-white bg-black px-10 py-2 rounded-full'>Download</a>  
-          </div>        
+          <div className="flex justify-center mt-5">
+            <a
+              href={product.file_path}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="dark:bg-white bg-black px-10 py-2 rounded-full dark:text-black text-white"
+            >
+              Download
+            </a>
+          </div>
+          <div className="flex justify-center mt-5">
+            <button
+              onClick={handleRedirect}
+              className="dark:bg-white bg-black px-10 py-2 rounded-full dark:text-black text-white"
+            >
+              View Full Info
+            </button>
+          </div>
         </div>
       </div>
     </div>,

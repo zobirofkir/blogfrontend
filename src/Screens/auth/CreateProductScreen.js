@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import HeaderComponent from '../../Components/auth/HeaderComponent';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,9 +7,10 @@ import 'react-toastify/dist/ReactToastify.css';
 const CreateProductScreen = () => {
   const [name, setName] = useState('');
   const [filePath, setFilePath] = useState(''); // Change to null
-  const [description, setDescription] = useState(''); 
+  const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [thumbnail, setThumbnail] = useState('');
+  const [slug, setSlug] = useState('');
   const [error, setError] = useState('');
   const [products, setProducts] = useState([]);
   const token = localStorage.getItem('access_token');
@@ -32,16 +33,32 @@ const CreateProductScreen = () => {
     fetchProducts();
   }, [token]);
 
+  // Generate slug from name
+  useEffect(() => {
+    if (name) {
+      const generatedSlug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+      setSlug(generatedSlug);
+    } else {
+      setSlug('');
+    }
+  }, [name]);
+
   const handleProduct = async (e) => {
     e.preventDefault();
 
     // Basic validation
+    if (!name || !description || !price || !thumbnail || !filePath) {
+      setError('All fields are required');
+      return;
+    }
+
     const formData = new FormData();
     formData.append('name', name);
     formData.append('price', price);
     formData.append('file_path', filePath);
     formData.append('thumbnail', thumbnail);
     formData.append('description', description);
+    formData.append('slug', slug); // Include slug in form data
 
     try {
       const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/products`, formData, {
@@ -51,37 +68,40 @@ const CreateProductScreen = () => {
         }
       });
 
-      toast.success("Product created successfully !", {
+      toast.success("Product created successfully!", {
         position: "top-right"
       });
 
       setError('');
       // Refresh the list of products
-      const updateProducts = [...products, response.data];
-      setProducts(updateProducts);
+      const updatedProducts = [...products, response.data];
+      setProducts(updatedProducts);
       setName('');
       setDescription('');
       setPrice('');
+      setThumbnail('');
+      setFilePath('');
+      setSlug(''); // Reset slug after submission
     } catch (err) {
       setError('Error creating Product');
       console.error(err);
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (slug) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`, {
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/products/${slug}`, {
         headers: {
           "Authorization": `Bearer ${token}`
         }
       });
-      toast.success("Product Deleted successfully !", {
+      toast.success("Product deleted successfully!", {
         position: "top-right"
       });
 
       // Remove the Product from the list
-      const updateProducts = products.filter(product => product.id !== id);
-      setProducts(updateProducts);
+      const updatedProducts = products.filter(product => product.slug !== slug);
+      setProducts(updatedProducts);
     } catch (err) {
       setError('Error deleting Product');
       console.error(err);
@@ -154,6 +174,15 @@ const CreateProductScreen = () => {
               />
             </div>
 
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Slug:</label>
+              <input 
+                type="text" 
+                value={slug} 
+                readOnly 
+                className="mt-1 block w-full border border-gray-300 dark:border-gray-700 rounded-lg p-2 shadow-sm bg-gray-200 dark:bg-gray-700 dark:text-white sm:text-sm"
+              />
+            </div>
 
             <button 
               type="submit" 
@@ -166,13 +195,13 @@ const CreateProductScreen = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
           {products.map(product => (
-            <div key={product.id} className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
+            <div key={product.slug} className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{product.name}</h3>
               <img src={product.thumbnail} alt={product.name} className="mt-2 w-full h-40 object-cover rounded-lg" />
               <p className="mt-2 text-gray-700 dark:text-gray-300">{product.description?.substring(0, 100) || 'No description available'}</p>
               <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{product.price} MAD</p>
               <button 
-                onClick={() => handleDelete(product.id)} 
+                onClick={() => handleDelete(product.slug)} 
                 className="mt-4 bg-red-600 text-white py-2 px-4 rounded-lg shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
               >
                 Delete

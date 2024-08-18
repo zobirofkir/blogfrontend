@@ -4,6 +4,14 @@ import HeaderComponent from '../../Components/auth/HeaderComponent';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+// Function to generate a slug from a title
+const generateSlug = (title) => {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-') // Replace spaces and non-alphanumeric characters with hyphens
+    .replace(/^-+|-+$/g, ''); // Trim hyphens from the start and end
+};
+
 const UpdateProjectScreen = () => {
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -11,7 +19,8 @@ const UpdateProjectScreen = () => {
     title: '',
     description: '',
     filePath: '',
-    price: ''
+    price: '',
+    slug: ''
   });
   const [image, setImage] = useState(null); // Separate state for image file
   const [showModal, setShowModal] = useState(false);
@@ -44,7 +53,8 @@ const UpdateProjectScreen = () => {
       title: project.title,
       description: project.description,
       filePath: project.filePath,
-      price: project.price
+      price: project.price,
+      slug: project.slug
     });
     setImage(null); // Reset image when opening modal
     setShowModal(true);
@@ -53,8 +63,16 @@ const UpdateProjectScreen = () => {
   // Handle form input change
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-  
-    if (e.target.type === "file") {
+
+    if (name === "title") {
+      // Update title and generate slug
+      const slug = generateSlug(value);
+      setFormData(prevData => ({
+        ...prevData,
+        title: value,
+        slug: slug
+      }));
+    } else if (e.target.type === "file") {
       // For file inputs, store the selected file
       setFormData(prevData => ({
         ...prevData,
@@ -68,7 +86,7 @@ const UpdateProjectScreen = () => {
       }));
     }
   };
-  
+
   // Handle image file change
   const handleFileChange = (e) => {
     setImage(e.target.files[0]);
@@ -88,10 +106,11 @@ const UpdateProjectScreen = () => {
       form.append('image', image); // Append image file if provided
     }
     form.append('filePath', formData.filePath);
+    form.append('slug', formData.slug);
 
     try {
       await axios.put(
-        `${process.env.REACT_APP_BACKEND_URL}/api/projects/${selectedProject.id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/projects/${selectedProject.slug}`,
         form,
         {
           headers: {
@@ -102,11 +121,10 @@ const UpdateProjectScreen = () => {
             const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
             setUploadProgress(progress);
           }
-  
         }
       );
       setProjects(projects.map(project =>
-        (project.id === selectedProject.id ? { ...project, ...formData, image: URL.createObjectURL(image) } : project)
+        (project.slug === selectedProject.slug ? { ...project, ...formData, image: URL.createObjectURL(image) } : project)
       ));
       toast.success("Project updated successfully!");
       setShowModal(false);
@@ -130,7 +148,7 @@ const UpdateProjectScreen = () => {
         <div className="space-y-4">
           {projects.map(project => (
             <div
-              key={project.id}
+              key={project.slug}
               className="p-4 bg-white dark:bg-gray-800 shadow-md rounded-lg flex flex-col md:flex-row md:justify-between items-center"
             >
               <div className="flex-shrink-0 mb-4 md:mb-0">
@@ -164,7 +182,7 @@ const UpdateProjectScreen = () => {
                   <label className="block text-gray-700 dark:text-gray-300 mb-2">Name</label>
                   <input
                     type="text"
-                    title="title"
+                    name="title"
                     value={formData.title}
                     onChange={handleChange}
                     className="w-full border border-gray-300 dark:border-gray-700 p-2 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
@@ -174,7 +192,7 @@ const UpdateProjectScreen = () => {
                 <div className="mb-4">
                   <label className="block text-gray-700 dark:text-gray-300 mb-2">Description</label>
                   <textarea
-                    title="description"
+                    name="description"
                     value={formData.description}
                     onChange={handleChange}
                     className="w-full border border-gray-300 dark:border-gray-700 p-2 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
@@ -185,7 +203,7 @@ const UpdateProjectScreen = () => {
                   <label className="block text-gray-700 dark:text-gray-300 mb-2">Image</label>
                   <input
                     type="file"
-                    title="image"
+                    name="image"
                     onChange={handleFileChange}
                     className="w-full border border-gray-300 dark:border-gray-700 p-2 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                   />
@@ -194,38 +212,51 @@ const UpdateProjectScreen = () => {
                   <label className="block text-gray-700 dark:text-gray-300 mb-2">Filepath</label>
                   <input
                     type="file"
-                    title="filePath"
+                    name="filePath"
                     onChange={handleChange}
                     className="w-full border border-gray-300 dark:border-gray-700 p-2 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                     required
                   />
                 </div>
-                <div className="flex justify-end space-x-4">
+                <div className="mb-4">
+                  <label className="block text-gray-700 dark:text-gray-300 mb-2">Slug</label>
+                  <input
+                    type="text"
+                    name="slug"
+                    value={formData.slug}
+                    onChange={handleChange}
+                    className="w-full border border-gray-300 dark:border-gray-700 p-2 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                    readOnly // Read-only as it is auto-generated
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700 dark:text-gray-300 mb-2">Price</label>
+                  <input
+                    type="number"
+                    name="price"
+                    value={formData.price}
+                    onChange={handleChange}
+                    className="w-full border border-gray-300 dark:border-gray-700 p-2 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                    required
+                  />
+                </div>
+                <div className="flex justify-between">
                   <button
                     type="submit"
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                    className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
                     disabled={loading}
                   >
-                    {loading ? 'Updating...' : 'Update Project'}
+                    {loading ? 'Updating...' : 'Update'}
                   </button>
                   <button
-                    type="button"
                     onClick={() => setShowModal(false)}
-                    className="bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-600"
+                    className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
                   >
                     Cancel
                   </button>
                 </div>
+                {loading && <div className="mt-4"><p>Upload Progress: {uploadProgress}%</p></div>}
               </form>
-              {uploadProgress > 0 && (
-                <div className="mt-4">
-                  <p className="text-gray-900 dark:text-white">Upload Progress: {uploadProgress}%</p>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
-                    <div className="bg-indigo-600 h-2.5 rounded-full" style={{ width: `${uploadProgress}%` }}></div>
-                  </div>
-                </div>
-              )}
-
             </div>
           </div>
         )}

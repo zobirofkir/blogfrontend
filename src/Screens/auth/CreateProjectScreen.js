@@ -8,7 +8,8 @@ const CreateProjectScreen = () => {
   const [title, setTitle] = useState('');
   const [image, setImage] = useState(null);
   const [description, setDescription] = useState('');
-  const [filePath, setFilePath] = useState(null); 
+  const [filePath, setFilePath] = useState(null);
+  const [slug, setSlug] = useState('');
   const [error, setError] = useState('');
   const [projects, setProjects] = useState([]);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -36,6 +37,14 @@ const CreateProjectScreen = () => {
     }
   }, [token]);
 
+  // Auto-generate the slug when the title changes
+  useEffect(() => {
+    if (title) {
+      const generatedSlug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+      setSlug(generatedSlug);
+    }
+  }, [title]);
+
   const handleProject = async (e) => {
     e.preventDefault();
 
@@ -49,6 +58,7 @@ const CreateProjectScreen = () => {
     formData.append('image', image);
     formData.append('description', description);
     formData.append('filePath', filePath);
+    formData.append('slug', slug);
 
     try {
       const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/projects`, formData, {
@@ -72,6 +82,7 @@ const CreateProjectScreen = () => {
       setImage(null);
       setDescription('');
       setFilePath(null);
+      setSlug(''); // Reset slug
       setUploadProgress(0); // Reset progress after upload
     } catch (err) {
       setError('Error creating project');
@@ -79,9 +90,9 @@ const CreateProjectScreen = () => {
     }
   };
 
-  const handleDelete = async (projectId) => {
+  const handleDelete = async (projectSlug) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/projects/${projectId}`, {
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/projects/${projectSlug}`, {
         headers: {
           "Authorization": `Bearer ${token}`
         }
@@ -90,7 +101,7 @@ const CreateProjectScreen = () => {
         position: "top-right"
       });
 
-      setProjects(projects.filter(project => project.id !== projectId));
+      setProjects(projects.filter(project => project.slug !== projectSlug));
     } catch (err) {
       setError('Error deleting project');
       console.error(err);
@@ -145,6 +156,16 @@ const CreateProjectScreen = () => {
                 className="mt-1 block w-full border border-gray-300 dark:border-gray-700 rounded-lg p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm dark:text-white"
               />
             </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Slug:</label>
+              <input 
+                type="text" 
+                value={slug} 
+                onChange={(e) => setSlug(e.target.value)} 
+                required 
+                className="mt-1 block w-full border border-gray-300 dark:border-gray-700 rounded-lg p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              />
+            </div>
             <button 
               type="submit" 
               className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -165,13 +186,13 @@ const CreateProjectScreen = () => {
         <div className="mt-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
             {projects.map(project => (
-              <div key={project.id} className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
+              <div key={project.slug} className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{project.title}</h3>
                 <img src={project.image} alt={project.title} className="mt-2 w-full h-40 object-cover rounded-lg" />
                 <p className="mt-2 text-gray-700 dark:text-gray-300">{project.description?.substring(0, 100)}</p>
                 <div>
                 <button 
-                  onClick={() => handleDelete(project.id)} 
+                  onClick={() => handleDelete(project.slug)} 
                   className="mt-4 bg-red-600 text-white py-2 px-4 rounded-lg shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                 >
                   Delete

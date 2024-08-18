@@ -22,6 +22,8 @@ import ProductScreen from './Screens/ProductScreen'
 import CreateProjectScreen from './Screens/auth/CreateProjectScreen';
 import UpdateProjectScreen from './Screens/auth/UpdateProjectScreen';
 import ProjectScreen from './Screens/ProjectScreen';
+import ProjectInfoScreen from './Screens/ProjectInfoScreen';
+import ProductInfoScreen from './Screens/ProductInfoScreen'
 
 const App = () => {
 
@@ -52,7 +54,11 @@ const App = () => {
           <Route path='/:slug' element={<DetailsScreen />} />
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/products" element={<ProductScreen />} />
-          <Route path="/projects" element={<ProjectScreen />} />
+          <Route path="/products" element={<ProductScreen />} />
+          <Route path="/product-info/:slug" element={<ProductInfoScreen />} />
+
+          <Route path="/projects" element={<ProjectScreen />} /> {/* Updated route */}
+          <Route path="/project-info/:slug" element={<ProjectInfoScreen/>}/>
 
           <Route path="/dashboard" element={<ProtectedRoute element={<DashboardScreen />} />} />
           <Route path="/create-blog" element={<ProtectedRoute element={<CreateBlogScreen />} />} />

@@ -17,25 +17,25 @@ const UpdateProductScreen = () => {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const token = localStorage.getItem('access_token'); // Retrieve token from local storage
+  
+  const getToken = () => localStorage.getItem('access_token'); // Utility function
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/auth/products`, {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${getToken()}` }
         });
-        console.log(response.data.data);
         setProducts(response.data.data);
       } catch (error) {
         console.error("Error fetching products:", error);
+        toast.error("Failed to fetch products.");
       }
     };
 
     fetchProducts();
-  }, [token]);
+  }, []);
 
-  // Open modal with product details
   const openModal = (product) => {
     setSelectedProduct(product);
     setFormData({
@@ -43,12 +43,11 @@ const UpdateProductScreen = () => {
       description: product.description,
       price: product.price,
       file_path: product.file_path,
-      thumbnail: product.thumbnail,      
+      thumbnail: product.thumbnail
     });
     setShowModal(true);
   };
 
-  // Handle form input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevData => ({
@@ -57,20 +56,13 @@ const UpdateProductScreen = () => {
     }));
   };
 
-  // Submit form to update product
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
 
-    const token = localStorage.getItem('access_token'); // Retrieve token from local storage
-
     const form = new FormData();
-    form.append('name', formData.name);
-    form.append('description', formData.description);
-    form.append('price', formData.price);
-    form.append('thumbnail', formData.thumbnail);
-    form.append('file_path', formData.file_path);
+    Object.keys(formData).forEach(key => form.append(key, formData[key]));
 
     try {
       await axios.put(
@@ -78,19 +70,22 @@ const UpdateProductScreen = () => {
         form,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data' // Set header for file upload
+            Authorization: `Bearer ${getToken()}`,
+            'Content-Type': 'multipart/form-data'
           }
         }
       );
-      setProducts(products.map(product => 
-        (product.id === selectedProduct.id ? { ...product, ...formData } : product)
-      ));
-      toast.success("This Product Has Been Updated Successfully!");
+      setProducts(prevProducts =>
+        prevProducts.map(product =>
+          product.id === selectedProduct.id ? { ...product, ...formData } : product
+        )
+      );
+      toast.success("Product updated successfully!");
       setShowModal(false);
     } catch (error) {
       setError('Error updating product. Please try again.');
       console.error("Error updating product:", error);
+      toast.error('Failed to update product.');
     } finally {
       setLoading(false);
     }
@@ -158,7 +153,7 @@ const UpdateProductScreen = () => {
                   ></textarea>
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700 dark:text-gray-300 mb-2">Thumbnail</label>
+                  <label className="block text-gray-700 dark:text-gray-300 mb-2">Thumbnail URL</label>
                   <input
                     type="text"
                     name="thumbnail"
@@ -180,7 +175,7 @@ const UpdateProductScreen = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700 dark:text-gray-300 mb-2">Filepath</label>
+                  <label className="block text-gray-700 dark:text-gray-300 mb-2">File Path</label>
                   <input
                     type="text"
                     name="file_path"
