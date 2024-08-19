@@ -75,7 +75,7 @@ const ProjectScreen = () => {
                     alt={project.name || 'Project Image'} // Use project name if available
                     className="w-full h-48 object-cover rounded-md mb-4"
                   />
-                  <h3 className="text-xl font-semibold mb-2">{project.name || 'Untitled'}</h3>
+                  <h3 className="text-xl font-semibold mb-2">{project.title || 'Untitled'}</h3>
                   <p className="text-gray-700 dark:text-gray-300 mb-4">
                     {project.description ? project.description.substring(0, 100) : 'Content not available...'}
                   </p>
