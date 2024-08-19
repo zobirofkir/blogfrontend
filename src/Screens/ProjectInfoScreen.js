@@ -48,7 +48,9 @@ const ProjectInfoScreen = () => {
             alt={project.title}
             className="w-full h-auto mb-6 object-cover rounded-lg shadow-md"
           />
-          <p className="text-base md:text-lg leading-relaxed mb-6 text-gray-800 dark:text-gray-300">{project.description}</p>
+          <p className="text-base md:text-lg leading-relaxed mb-6 text-gray-800 dark:text-gray-300 break-words whitespace-pre-line">
+            {project.description}
+          </p>
           <div className="flex justify-center mt-5">
             <a
               href={project.filePath}

@@ -44,7 +44,9 @@ const ProductModal = ({ isOpen, onClose, product }) => {
             />
           </div>
           <h3 className='dark:text-white text-black font-bold p-5'>Price: {product.price} MAD</h3>
-          <p className="text-gray-700 dark:text-gray-300">{product.description}</p>
+          <p className="text-base md:text-lg leading-relaxed mb-6 text-gray-800 dark:text-gray-300 break-words whitespace-pre-line">
+            {product.description}
+          </p>
           <div className="flex justify-center mt-5">
             <a
               href={product.file_path}

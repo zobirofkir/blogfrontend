@@ -87,7 +87,9 @@ const DetailsScreen = () => {
           alt={blog.title} 
           className="w-full h-auto mb-6 object-cover rounded-lg shadow-md" 
         />
-        <p className="text-base md:text-lg leading-relaxed mb-6 text-gray-800 dark:text-gray-300">{blog.description}</p>
+        <p className="text-base md:text-lg leading-relaxed mb-6 text-gray-800 dark:text-gray-300 break-words whitespace-pre-line">
+          {blog.description}
+        </p>
 
         <section className="mt-12">
           <h2 className="text-2xl font-semibold mb-6 text-gray-900 dark:text-gray-100">Add a Comment</h2>

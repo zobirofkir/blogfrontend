@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify'; // Import Toastify
-import 'react-toastify/dist/ReactToastify.css'; // Import Toastify CSS
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ModalComponent = ({ isOpen, onClose, blog }) => {
   const navigate = useNavigate();
@@ -35,10 +35,10 @@ const ModalComponent = ({ isOpen, onClose, blog }) => {
     try {
       await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/blogs/${blog.slug}/comments`, { content: comment });
       setComment('');
-      toast.success('Comment posted successfully!'); // Display success notification
+      toast.success('Comment posted successfully!');
     } catch (error) {
       console.error('Error posting comment:', error);
-      toast.error('Failed to post comment.'); // Display error notification
+      toast.error('Failed to post comment.');
     }
   };
 
@@ -74,7 +74,9 @@ const ModalComponent = ({ isOpen, onClose, blog }) => {
               className="w-full sm:w-3/4 md:w-1/2 h-auto object-cover rounded-md"
             />
           </div>
-          <p className="text-gray-700 dark:text-gray-300">{blog.description}</p>
+          <p className="text-gray-700 dark:text-gray-300 whitespace-pre-line leading-relaxed">
+            {blog.description}
+          </p>
         </div>
 
         <div className="mb-6">
@@ -148,7 +150,7 @@ const ModalComponent = ({ isOpen, onClose, blog }) => {
           </button>
         </div>
       </div>
-      <ToastContainer /> {/* Add ToastContainer */}
+      <ToastContainer />
     </div>,
     document.body
   );

@@ -48,7 +48,9 @@ const ProductInfoScreen = () => {
           className="w-full h-auto mb-6 object-cover rounded-lg shadow-md"
         />
         <h2 className="text-xl md:text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Price: {product.price} MAD</h2>
-        <p className="text-base md:text-lg leading-relaxed mb-6 text-gray-800 dark:text-gray-300">{product.description}</p>
+        <p className="text-base md:text-lg leading-relaxed mb-6 text-gray-800 dark:text-gray-300 break-words whitespace-pre-line">
+          {product.description}
+        </p>
         <div className="flex justify-center mt-5">
           <a
             href={product.file_path}

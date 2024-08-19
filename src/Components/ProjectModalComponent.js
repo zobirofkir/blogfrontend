@@ -43,7 +43,9 @@ const ProjectModalComponent = ({ isOpen, onClose, project }) => {
               className="w-full sm:w-3/4 md:w-1/2 h-auto object-cover rounded-md"
             />
           </div>
-          <p className="text-gray-700 dark:text-gray-300">{project.description}</p>
+          <p className="text-base md:text-lg leading-relaxed mb-6 text-gray-800 dark:text-gray-300 break-words whitespace-pre-line">
+            {project.description}
+          </p>
           <div className="flex justify-center mt-5">
             <a
               href={project.filePath}
