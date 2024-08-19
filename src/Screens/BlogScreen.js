@@ -1,27 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import Modal from '../Components/ModalComponent';
+import useFetchData from '../Hooks/useFetchData';
 
 const BlogScreen = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedBlog, setSelectedBlog] = useState(null);
-  const [blogs, setBlogs] = useState([]);
-
-  // Function to fetch blog data from the API
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/blogs`);
-      console.log(response.data.data); // Log data for debugging
-      setBlogs(response.data.data); // Update state with fetched data
-    } catch (error) {
-      console.error("Error fetching blogs:", error);
-    }
-  };
-
-  // Fetch data when the component mounts
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const { data: blogs } = useFetchData(`${process.env.REACT_APP_BACKEND_URL}/api/blogs`);
 
   const openModal = (blog) => {
     setSelectedBlog(blog);

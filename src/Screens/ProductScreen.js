@@ -1,26 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import Modal from '../Components/ProductModal';
+import useFetchData from '../Hooks/useFetchData';
 
 const ProductScreen = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [products, setProducts] = useState([]);
-
-  // Function to fetch product data from the API
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/products`);
-      setProducts(response.data.data || []); // Ensure to handle cases where data might be undefined
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
-  };
-
-  // Fetch data when the component mounts
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const {data:products} = useFetchData(`${process.env.REACT_APP_BACKEND_URL}/api/products`);
 
   const openModal = (product) => {
     setSelectedProduct(product);

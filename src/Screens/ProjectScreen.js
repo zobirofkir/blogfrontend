@@ -1,26 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import Modal from '../Components/ProjectModalComponent';
+import useFetchData from '../Hooks/useFetchData';
 
 const ProjectScreen = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
-  const [projects, setProjects] = useState([]);
-
-  // Function to fetch project data from the API
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/projects`);
-      setProjects(response.data.data || []); // Ensure to handle cases where data might be undefined
-    } catch (error) {
-      console.error("Error fetching projects:", error);
-    }
-  };
-
-  // Fetch data when the component mounts
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const {data:projects} = useFetchData(`${process.env.REACT_APP_BACKEND_URL}/api/projects`);
 
   const openModal = (project) => {
     setSelectedProject(project);
