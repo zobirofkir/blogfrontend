@@ -1,4 +1,5 @@
 import React from 'react';
+import ChatIconComponent from '../Components/ChatIconComponent'
 
 const AboutScreen = () => {
   return (
@@ -12,6 +13,8 @@ const AboutScreen = () => {
           Our mission is to create a platform that fosters knowledge sharing and community engagement. Whether you are here to learn, explore, or contribute, we hope you find our content valuable and enjoyable.
         </p>
       </div>
+
+      <ChatIconComponent/>
     </div>
   );
 }

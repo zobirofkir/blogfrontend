@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Modal from '../Components/ProjectModalComponent';
 import useFetchData from '../Hooks/useFetchData';
+import ChatIconComponent from '../Components/ChatIconComponent';
 
 const ProjectScreen = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -78,6 +79,8 @@ const ProjectScreen = () => {
           </div>
         </section>
       </main>
+
+      <ChatIconComponent/>
 
       {/* Modal */}
       {isModalOpen && <Modal isOpen={isModalOpen} onClose={closeModal} project={selectedProject} />}

@@ -3,6 +3,7 @@ import useFetchData from '../Hooks/useFetchData';
 import ModalComponent from '../Components/ModalComponent';
 import ProductModal from '../Components/ProductModal';
 import ProjectModalComponent from '../Components/ProjectModalComponent';
+import ChatIconComponent from '../Components/ChatIconComponent'
 
 const HomeScreen = () => {
   const { data: blogs } = useFetchData(`${process.env.REACT_APP_BACKEND_URL}/api/blogs`);
@@ -107,6 +108,7 @@ const HomeScreen = () => {
         </div>
       </div>
 
+      <ChatIconComponent/>
       {/* Modal Components */}
       {isModalOpen && <ModalComponent isOpen={isModalOpen} onClose={closeModal} blog={selectedBlog} />}
       {isProductOpen && <ProductModal isOpen={isProductOpen} onClose={closeProduct} product={selectedProduct} />}
