@@ -3,7 +3,7 @@ import useFetchData from '../Hooks/useFetchData';
 import ModalComponent from '../Components/ModalComponent';
 import ProductModal from '../Components/ProductModal';
 import ProjectModalComponent from '../Components/ProjectModalComponent';
-import ChatIconComponent from '../Components/ChatIconComponent'
+import ChatIconComponent from '../Components/ChatIconComponent';
 
 const HomeScreen = () => {
   const { data: blogs } = useFetchData(`${process.env.REACT_APP_BACKEND_URL}/api/blogs`);
@@ -16,6 +16,27 @@ const HomeScreen = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isProjectOpen, setIsProjectOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
+
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value.toLowerCase());
+  };
+
+  const filteredBlogs = blogs.filter((blog) =>
+    blog.title.toLowerCase().includes(searchQuery) || 
+    blog.description.toLowerCase().includes(searchQuery)
+  );
+
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchQuery) || 
+    product.description.toLowerCase().includes(searchQuery)
+  );
+
+  const filteredProjects = projects.filter((project) =>
+    project.title.toLowerCase().includes(searchQuery) || 
+    project.description.toLowerCase().includes(searchQuery)
+  );
 
   const openModal = (blog) => {
     setSelectedBlog(blog);
@@ -60,9 +81,20 @@ const HomeScreen = () => {
         </div>
       </div>
 
+      {/* Search Input */}
+      <div className="container mx-auto px-4 py-6">
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchQuery}
+          onChange={handleSearchChange}
+          className="px-3 py-2 border border-gray-300 rounded-lg dark:border-gray-600 dark:bg-gray-700 dark:text-white w-full"
+        />
+      </div>
+
       {/* Featured Cards Section */}
       <div className="container mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-        {blogs.map((blog) => (
+        {filteredBlogs.map((blog) => (
           <div key={blog.slug} className="bg-white p-6 rounded-lg shadow-md dark:bg-gray-800 dark:text-white">
             <img src={blog.image || 'https://i.gifer.com/35LA.gif'} alt={blog.title} className="w-full h-48 object-cover rounded-md mb-4" />
             <h3 className="text-xl font-semibold mb-2">{blog.title}</h3>
@@ -78,7 +110,7 @@ const HomeScreen = () => {
       <div className="container mx-auto px-4 py-12">
         <h2 className="text-sm md:text-3xl font-bold text-center mb-8 whitespace-nowrap">Download Free Website Templates and Games</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((product) => (
+          {filteredProducts.map((product) => (
             <div key={product.slug} className="bg-white p-6 rounded-lg shadow-md dark:bg-gray-800 dark:text-white">
               <img src={product.thumbnail} alt={product.name} className="w-full h-48 object-cover rounded-md mb-4" />
               <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
@@ -95,7 +127,7 @@ const HomeScreen = () => {
       <div className="container mx-auto px-4 py-12">
         <h2 className="text-sm md:text-3xl font-bold text-center mb-8 whitespace-nowrap">Download Free Web & App Development Projects</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project) => (
+          {filteredProjects.map((project) => (
             <div key={project.slug} className="bg-white p-6 rounded-lg shadow-md dark:bg-gray-800 dark:text-white">
               <img src={project.image} alt={project.title} className="w-full h-48 object-cover rounded-md mb-4" />
               <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
@@ -108,7 +140,7 @@ const HomeScreen = () => {
         </div>
       </div>
 
-      <ChatIconComponent/>
+      <ChatIconComponent />
       {/* Modal Components */}
       {isModalOpen && <ModalComponent isOpen={isModalOpen} onClose={closeModal} blog={selectedBlog} />}
       {isProductOpen && <ProductModal isOpen={isProductOpen} onClose={closeProduct} product={selectedProduct} />}
