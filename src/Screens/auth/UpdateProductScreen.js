@@ -18,7 +18,7 @@ const UpdateProductScreen = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   
-  const getToken = () => localStorage.getItem('access_token'); // Utility function
+  const getToken = () => localStorage.getItem('access_token');
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -61,17 +61,14 @@ const UpdateProductScreen = () => {
     setLoading(true);
     setError('');
 
-    const form = new FormData();
-    Object.keys(formData).forEach(key => form.append(key, formData[key]));
-
     try {
       await axios.put(
         `${process.env.REACT_APP_BACKEND_URL}/api/products/${selectedProduct.id}`,
-        form,
+        formData,
         {
           headers: {
             Authorization: `Bearer ${getToken()}`,
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'application/json'
           }
         }
       );
