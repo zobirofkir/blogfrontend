@@ -4,14 +4,30 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ChatIconComponent from '../Components/ChatIconComponent';
 
+/**
+ * ContactScreen component
+ * @description This component renders the contact screen.
+ * @param {Object} props Component props
+ * @returns {JSX.Element} ContactScreen component
+ */
 const ContactScreen = () => {
+  /**
+   * State variables for the name, email, and message
+   */
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
 
+  /**
+   * Handle contact form submission
+   * @param {Object} e Event object
+   */
   const handleContact = async (e) => {
     e.preventDefault();
 
+    /**
+     * Create an object with the name, email, and message
+     */
     const data = {
       name,
       email,
@@ -19,9 +35,19 @@ const ContactScreen = () => {
     };
 
     try {
+      /**
+       * Make a POST request to the backend to send the message
+       */
       const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/contacts`, data);
+
+      /**
+       * Display a success toast message
+       */
       toast.success(`We will contact you soon at this email ${response.data.data.email}`);
     } catch (error) {
+      /**
+       * Display an error toast message
+       */
       toast.error('There was an error sending your message. Please try again.');
     }
   };
