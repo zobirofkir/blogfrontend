@@ -177,7 +177,7 @@ const CreateUserScreen = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {users.length > 0 ? (
               users.map(user => (
-                <div key={user.id} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md space-y-4">
+                <div key={user.id} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md space-y-4 overflow-hidden">
                   <p className="text-gray-900 dark:text-white text-lg font-semibold">{user.name}</p>
                   <p className="text-gray-700 dark:text-gray-400">{user.email}</p>
                     <button 
