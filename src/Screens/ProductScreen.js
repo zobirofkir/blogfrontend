@@ -3,16 +3,29 @@ import Modal from '../Components/ProductModal';
 import useFetchData from '../Hooks/useFetchData';
 import ChatIconComponent from '../Components/ChatIconComponent';
 
+/**
+ * ProductScreen component
+ * @description This component renders the product screen.
+ * @param {Object} props Component props
+ * @returns {JSX.Element} ProductScreen component
+ */
 const ProductScreen = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const {data:products} = useFetchData(`${process.env.REACT_APP_BACKEND_URL}/api/products`);
 
+  /**
+   * Open the modal with the selected product
+   * @param {Object} product Product to be displayed in the modal
+   */
   const openModal = (product) => {
     setSelectedProduct(product);
     setIsModalOpen(true);
   };
 
+  /**
+   * Close the modal
+   */
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedProduct(null);
