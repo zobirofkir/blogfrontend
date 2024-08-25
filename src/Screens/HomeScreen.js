@@ -6,10 +6,12 @@ import ProjectModalComponent from '../Components/ProjectModalComponent';
 import ChatIconComponent from '../Components/ChatIconComponent';
 
 const HomeScreen = () => {
+  // Fetch data from the backend API
   const { data: blogs } = useFetchData(`${process.env.REACT_APP_BACKEND_URL}/api/blogs`);
   const { data: products } = useFetchData(`${process.env.REACT_APP_BACKEND_URL}/api/products`);
   const { data: projects } = useFetchData(`${process.env.REACT_APP_BACKEND_URL}/api/projects`);
 
+  // State variables to track the status of the modals
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [isProductOpen, setIsProductOpen] = useState(false);
@@ -17,12 +19,16 @@ const HomeScreen = () => {
   const [isProjectOpen, setIsProjectOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
 
+  // State variable to track the search query
   const [searchQuery, setSearchQuery] = useState('');
 
+  // Function to handle search query changes
   const handleSearchChange = (event) => {
+    // Update the search query state variable
     setSearchQuery(event.target.value.toLowerCase());
   };
 
+  // Filter the data based on the search query
   const filteredBlogs = blogs.filter((blog) =>
     blog.title.toLowerCase().includes(searchQuery) || 
     blog.description.toLowerCase().includes(searchQuery)
@@ -38,34 +44,52 @@ const HomeScreen = () => {
     project.description.toLowerCase().includes(searchQuery)
   );
 
+  // Function to open the blog modal
   const openModal = (blog) => {
+    // Set the selected blog state variable
     setSelectedBlog(blog);
+    // Set the isModalOpen state variable to true
     setIsModalOpen(true);
   };
 
+  // Function to close the blog modal
   const closeModal = () => {
+    // Set the isModalOpen state variable to false
     setIsModalOpen(false);
+    // Set the selectedBlog state variable to null
     setSelectedBlog(null);
   };
 
+  // Function to open the product modal
   const openProduct = (product) => {
+    // Set the selected product state variable
     setSelectedProduct(product);
+    // Set the isProductOpen state variable to true
     setIsProductOpen(true);
   };
 
   const closeProduct = () => {
+  // Function to close the product modal
     setIsProductOpen(false);
+    // Set the isProductOpen state variable to false
     setSelectedProduct(null);
+    // Set the selected product state variable to null
   };
 
   const openProject = (project) => {
+  // Function to open the project modal
     setSelectedProject(project);
+    // Set the selected project state variable
     setIsProjectOpen(true);
+    // Set the isProjectOpen state variable to true
   };
 
   const closeProject = () => {
+  // Function to close the project modal
     setIsProjectOpen(false);
+    // Set the isProjectOpen state variable to false
     setSelectedProject(null);
+    // Set the selected project state variable to null
   };
 
   return (
