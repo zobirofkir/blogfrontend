@@ -9,6 +9,16 @@ const ProjectInfoScreen = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (project) {
+      document.title = project.title;
+    }
+
+    return () => {
+      document.title = "CSW-BLOG"; // Default title
+    };
+  }, [project]);
+
+  useEffect(() => {
     const fetchProject = async () => {
       setLoading(true);
       setError(null);

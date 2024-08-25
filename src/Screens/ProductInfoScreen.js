@@ -9,6 +9,16 @@ const ProductInfoScreen = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (product) {
+      document.title = product.name;
+    }
+
+    return () => {
+      document.title = "CSW-BLOG";
+    };
+  }, [product]);
+
+  useEffect(() => {
     const fetchProduct = async () => {
       setLoading(true);
       setError(null);

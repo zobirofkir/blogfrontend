@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const ProjectModalComponent = ({ isOpen, onClose, project }) => {
   const navigate = useNavigate(); // Initialize useNavigate
+
+  useEffect(() => {
+    if (project) {
+      document.title = project.title;
+    }
+
+    return () => {
+      document.title = "CSW-BLOG"; // Default title
+    };
+  }, [project]);
+
 
   if (!isOpen) return null;
 

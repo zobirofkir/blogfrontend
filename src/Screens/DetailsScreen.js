@@ -15,6 +15,17 @@ const DetailsScreen = () => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
+  useEffect(() => {
+    if (blog) {
+      document.title = blog.title;
+    }
+
+    return () => {
+      document.title = "CSW-BLOG"; // Default title
+    };
+  }, [blog]);
+
+
   // Fetch blog details and comments
   useEffect(() => {
     const fetchBlog = async () => {

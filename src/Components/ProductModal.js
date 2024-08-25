@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
+
 const ProductModal = ({ isOpen, onClose, product }) => {
   const navigate = useNavigate(); // Initialize useNavigate
+
+  useEffect(() => {
+    if (product) {
+      document.title = product.name;
+    }
+
+    return () => {
+      document.title = "CSW-BLOG"; // Default name
+    };
+  }, [product]);
+
 
   if (!isOpen) return null;
 

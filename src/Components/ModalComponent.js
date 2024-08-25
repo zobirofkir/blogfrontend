@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -10,6 +10,17 @@ const ModalComponent = ({ isOpen, onClose, blog }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [comment, setComment] = useState('');
   const commentsPerPage = 5;
+
+  useEffect(() => {
+    if (blog) {
+      document.title = blog.title;
+    }
+
+    return () => {
+      document.title = "CSW-BLOG"; // Default title
+    };
+  }, [blog]);
+
 
   if (!isOpen) return null;
 
