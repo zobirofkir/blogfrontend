@@ -50,11 +50,11 @@ const UpdateProjectScreen = () => {
   const openModal = (project) => {
     setSelectedProject(project);
     setFormData({
-      title: project.title,
-      description: project.description,
-      filePath: project.filePath,
-      price: project.price,
-      slug: project.slug
+      title: project.title || '',
+      description: project.description || '',
+      filePath: project.filePath || '',
+      price: project.price || '',
+      slug: project.slug || ''
     });
     setImage(null); // Reset image when opening modal
     setShowModal(true);
@@ -226,7 +226,7 @@ const UpdateProjectScreen = () => {
                     value={formData.slug}
                     onChange={handleChange}
                     className="w-full border border-gray-300 dark:border-gray-700 p-2 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-                    readOnly // Read-only as it is auto-generated
+                    required
                   />
                 </div>
                 <div className="mb-4">
@@ -240,22 +240,27 @@ const UpdateProjectScreen = () => {
                     required
                   />
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-end">
+                  <button
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                    className="mr-4 bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700"
+                  >
+                    Cancel
+                  </button>
                   <button
                     type="submit"
-                    className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+                    className={`bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 ${loading ? 'opacity-50' : ''}`}
                     disabled={loading}
                   >
                     {loading ? 'Updating...' : 'Update'}
                   </button>
-                  <button
-                    onClick={() => setShowModal(false)}
-                    className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
-                  >
-                    Cancel
-                  </button>
                 </div>
-                {loading && <div className="mt-4"><p>Upload Progress: {uploadProgress}%</p></div>}
+                {uploadProgress > 0 && (
+                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 mt-4">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${uploadProgress}%` }}></div>
+                  </div>
+                )}
               </form>
             </div>
           </div>
