@@ -3,16 +3,28 @@ import Modal from '../Components/ProjectModalComponent';
 import useFetchData from '../Hooks/useFetchData';
 import ChatIconComponent from '../Components/ChatIconComponent';
 
+/**
+ * ProjectScreen component
+ * @description This component renders the project screen.
+ * @returns {JSX.Element} ProjectScreen component
+ */
 const ProjectScreen = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const {data:projects} = useFetchData(`${process.env.REACT_APP_BACKEND_URL}/api/projects`);
 
+  /**
+   * Open the modal with the selected project
+   * @param {Object} project Project to be displayed in the modal
+   */
   const openModal = (project) => {
     setSelectedProject(project);
     setIsModalOpen(true);
   };
 
+  /**
+   * Close the modal
+   */
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedProject(null);
@@ -87,5 +99,4 @@ const ProjectScreen = () => {
     </div>
   );
 };
-
 export default ProjectScreen;
