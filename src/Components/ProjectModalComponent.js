@@ -74,6 +74,14 @@ const ProjectModalComponent = ({ isOpen, onClose, project }) => {
             >
               View Full Info
             </button>
+            <a
+              href={`${project.project_url}`}
+              target='__black'
+              rel="noopener noreferrer"
+              className="dark:bg-white bg-black px-10 py-2 rounded-full dark:text-black text-white mx-5"
+            >
+              Url
+            </a>
           </div>
         </div>
       </div>

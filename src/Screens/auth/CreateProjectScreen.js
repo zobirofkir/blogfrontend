@@ -10,6 +10,7 @@ const CreateProjectScreen = () => {
   const [description, setDescription] = useState('');
   const [filePath, setFilePath] = useState(null);
   const [slug, setSlug] = useState('');
+  const [projectUrl, setProjectUrl] = useState('');
   const [error, setError] = useState('');
   const [projects, setProjects] = useState([]);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -59,6 +60,7 @@ const CreateProjectScreen = () => {
     formData.append('description', description);
     formData.append('filePath', filePath);
     formData.append('slug', slug);
+    formData.append('project_url', projectUrl);
 
     try {
       const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/projects`, formData, {
@@ -83,6 +85,7 @@ const CreateProjectScreen = () => {
       setDescription('');
       setFilePath(null);
       setSlug(''); // Reset slug
+      setProjectUrl('');
       setUploadProgress(0); // Reset progress after upload
     } catch (err) {
       setError('Error creating project');
@@ -162,6 +165,16 @@ const CreateProjectScreen = () => {
                 type="text" 
                 value={slug} 
                 onChange={(e) => setSlug(e.target.value)} 
+                required 
+                className="mt-1 block w-full border border-gray-300 dark:border-gray-700 rounded-lg p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Project Url:</label>
+              <input 
+                type="text" 
+                value={projectUrl} 
+                onChange={(e) => setProjectUrl(e.target.value)} 
                 required 
                 className="mt-1 block w-full border border-gray-300 dark:border-gray-700 rounded-lg p-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               />

@@ -70,6 +70,14 @@ const ProjectInfoScreen = () => {
               >
               Download
             </a>
+            <a
+              href={`${project.project_url}`}
+              target='__black'
+              rel="noopener noreferrer"
+              className="bg-gray-800 dark:bg-gray-700 text-gray-100 px-6 py-3 rounded-full text-lg hover:bg-gray-700 dark:hover:bg-gray-600 transition mx-5"
+            >
+              Url
+            </a>
           </div>
         </article>
       </div>
