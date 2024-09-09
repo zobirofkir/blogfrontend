@@ -20,7 +20,8 @@ const UpdateProjectScreen = () => {
     description: '',
     filePath: '',
     price: '',
-    slug: ''
+    slug: '',
+    project_url: ''
   });
   const [image, setImage] = useState(null); // Separate state for image file
   const [showModal, setShowModal] = useState(false);
@@ -54,7 +55,8 @@ const UpdateProjectScreen = () => {
       description: project.description || '',
       filePath: project.filePath || '',
       price: project.price || '',
-      slug: project.slug || ''
+      slug: project.slug || '',
+      project_url: project.project_url || ''
     });
     setImage(null); // Reset image when opening modal
     setShowModal(true);
@@ -107,6 +109,7 @@ const UpdateProjectScreen = () => {
     }
     form.append('filePath', formData.filePath);
     form.append('slug', formData.slug);
+    form.append('project_url', formData.project_url);
 
     try {
       await axios.put(
@@ -224,6 +227,17 @@ const UpdateProjectScreen = () => {
                     type="text"
                     name="slug"
                     value={formData.slug}
+                    onChange={handleChange}
+                    className="w-full border border-gray-300 dark:border-gray-700 p-2 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700 dark:text-gray-300 mb-2">Project URL</label>
+                  <input
+                    type="text"
+                    name="project_url"
+                    value={formData.project_url}
                     onChange={handleChange}
                     className="w-full border border-gray-300 dark:border-gray-700 p-2 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                     required
