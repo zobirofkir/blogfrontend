@@ -149,7 +149,7 @@ const HomeScreen = () => {
 
       {/* My Projects */}
       <div className="container mx-auto px-4 py-12">
-        <h2 className="text-sm md:text-3xl font-bold text-center mb-8 whitespace-nowrap">Download Free Web & App Development Projects</h2>
+        <h2 className="text-sm md:text-3xl font-bold text-center mb-8 whitespace-nowrap">My Projects && Open Source Projects && Games</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project) => (
             <div key={project.slug} className="bg-white p-6 rounded-lg shadow-md dark:bg-gray-800 dark:text-white">
