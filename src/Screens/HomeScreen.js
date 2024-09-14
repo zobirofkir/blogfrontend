@@ -116,6 +116,23 @@ const HomeScreen = () => {
         />
       </div>
 
+      {/* My Projects */}
+      <div className="container mx-auto px-4 py-12">
+        <h2 className="text-sm md:text-3xl font-bold text-center mb-8 whitespace-nowrap">My Projects </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredProjects.map((project) => (
+            <div key={project.slug} className="bg-white p-6 rounded-lg shadow-md dark:bg-gray-800 dark:text-white">
+              <img src={project.image} alt={project.title} className="w-full h-48 object-cover rounded-md mb-4" />
+              <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
+              <p className="text-gray-700 dark:text-gray-300 mb-4 overflow-hidden">{project.description.substring(0, 100)}...</p>
+              <button onClick={() => openProject(project)} className="text-blue-500 font-semibold hover:underline dark:text-blue-400">
+                Read More
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Featured Cards Section */}
       <div className="container mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
         {filteredBlogs.map((blog) => (
@@ -140,23 +157,6 @@ const HomeScreen = () => {
               <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
               <p className="text-gray-700 dark:text-gray-300 mb-4 overflow-hidden">{product.description.substring(0, 100)}...</p>
               <button onClick={() => openProduct(product)} className="text-blue-500 font-semibold hover:underline dark:text-blue-400">
-                Read More
-              </button>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* My Projects */}
-      <div className="container mx-auto px-4 py-12">
-        <h2 className="text-sm md:text-3xl font-bold text-center mb-8 whitespace-nowrap">My Projects </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project) => (
-            <div key={project.slug} className="bg-white p-6 rounded-lg shadow-md dark:bg-gray-800 dark:text-white">
-              <img src={project.image} alt={project.title} className="w-full h-48 object-cover rounded-md mb-4" />
-              <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-              <p className="text-gray-700 dark:text-gray-300 mb-4 overflow-hidden">{project.description.substring(0, 100)}...</p>
-              <button onClick={() => openProject(project)} className="text-blue-500 font-semibold hover:underline dark:text-blue-400">
                 Read More
               </button>
             </div>
