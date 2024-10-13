@@ -24,6 +24,7 @@ import UpdateProjectScreen from './Screens/auth/UpdateProjectScreen';
 import ProjectScreen from './Screens/ProjectScreen';
 import ProjectInfoScreen from './Screens/ProjectInfoScreen';
 import ProductInfoScreen from './Screens/ProductInfoScreen'
+import PriceScreen from './Screens/PriceScreen';
 
 const App = () => {
 
@@ -57,7 +58,8 @@ const App = () => {
           <Route path="/products" element={<ProductScreen />} />
           <Route path="/product-info/:slug" element={<ProductInfoScreen />} />
 
-          <Route path="/projects" element={<ProjectScreen />} /> {/* Updated route */}
+          <Route path="/projects" element={<ProjectScreen />} />
+          <Route path="/prices" element={<PriceScreen />} />
           <Route path="/project-info/:slug" element={<ProjectInfoScreen/>}/>
 
           <Route path="/dashboard" element={<ProtectedRoute element={<DashboardScreen />} />} />
