@@ -46,11 +46,8 @@ const ProductScreen = () => {
           <p className="mt-4 text-lg md:text-xl">
             Stay updated with the latest products, tips, and insights.
           </p>
-          <a
-            href="#latest-posts"
-            className="mt-6 inline-block bg-white text-blue-500 px-6 py-3 rounded-lg font-semibold dark:bg-gray-800 dark:text-blue-400 hover:underline"
-          >
-            Explore Now
+          <a href='/contacts'>
+              <button className="mt-6 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Contact Me</button>
           </a>
         </div>
       </section>

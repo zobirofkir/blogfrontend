@@ -100,7 +100,9 @@ const HomeScreen = () => {
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-white">Welcome To CSW-BLOG</h1>
             <p className="mt-4 text-xl text-gray-200">Discover the latest news and trends in the tech world.</p>
-            <button className="mt-6 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Explore Now</button>
+            <a href='/contacts'>
+              <button className="mt-6 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Contact Me</button>
+            </a>
           </div>
         </div>
       </div>
@@ -118,7 +120,7 @@ const HomeScreen = () => {
 
       {/* My Projects */}
       <div className="container mx-auto px-4 py-12">
-        <h2 className="text-sm md:text-3xl font-bold text-center mb-8 whitespace-nowrap">My Projects </h2>
+        {/* <h2 className="text-sm md:text-3xl font-bold text-center mb-8 whitespace-nowrap">My Projects </h2> */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project) => (
             <div key={project.slug} className="bg-white p-6 rounded-lg shadow-md dark:bg-gray-800 dark:text-white">
@@ -149,7 +151,7 @@ const HomeScreen = () => {
 
       {/* My Products */}
       <div className="container mx-auto px-4 py-12">
-        <h2 className="text-sm md:text-3xl font-bold text-center mb-8 whitespace-nowrap">Download Free Website Templates and Games</h2>
+        {/* <h2 className="text-sm md:text-3xl font-bold text-center mb-8 whitespace-nowrap">Download Free Website Templates and Games</h2> */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProducts.map((product) => (
             <div key={product.slug} className="bg-white p-6 rounded-lg shadow-md dark:bg-gray-800 dark:text-white">

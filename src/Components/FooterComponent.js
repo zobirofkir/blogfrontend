@@ -18,6 +18,9 @@ const FooterComponent = () => {
               <a href="/projects" className="hover:underline">Project</a>
             </li>
             <li>
+              <a href="/prices" className="hover:underline">Price</a>
+            </li>
+            <li>
               <a href="/contacts" className="hover:underline">Contact</a>
             </li>
           </ul>
