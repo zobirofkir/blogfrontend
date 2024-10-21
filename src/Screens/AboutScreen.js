@@ -1,5 +1,5 @@
 import React from 'react';
-import ChatIconComponent from '../Components/ChatIconComponent'
+import DonateButtonComponent from '../Components/DonateButtonComponent';
 
 /**
  * AboutScreen
@@ -26,7 +26,7 @@ const AboutScreen = () => {
       </div>
 
       {/* The chat icon component */}
-      <ChatIconComponent/>
+      <DonateButtonComponent/>
     </div>
   );
 }

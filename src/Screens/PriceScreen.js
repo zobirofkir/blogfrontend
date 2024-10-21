@@ -1,4 +1,5 @@
 import React from 'react'
+import DonateButtonComponent from '../Components/DonateButtonComponent'
 
 const PriceScreen = () => {
   return (
@@ -124,6 +125,7 @@ const PriceScreen = () => {
                     </div>
                 </div>
             </div>
+            <DonateButtonComponent/>
         </section>
   )
 }

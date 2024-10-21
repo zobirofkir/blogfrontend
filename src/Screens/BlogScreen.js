@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from '../Components/ModalComponent';
 import useFetchData from '../Hooks/useFetchData';
-import ChatIconComponent from '../Components/ChatIconComponent';
+import DonateButtonComponent from '../Components/DonateButtonComponent';
 
 const BlogScreen = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -77,7 +77,7 @@ const BlogScreen = () => {
         </section>
       </main>
 
-      <ChatIconComponent/>
+      <DonateButtonComponent/>
 
       {/* Modal */}
       {isModalOpen && <Modal isOpen={isModalOpen} onClose={closeModal} blog={selectedBlog} />}

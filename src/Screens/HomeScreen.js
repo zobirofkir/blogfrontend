@@ -3,7 +3,7 @@ import useFetchData from '../Hooks/useFetchData';
 import ModalComponent from '../Components/ModalComponent';
 import ProductModal from '../Components/ProductModal';
 import ProjectModalComponent from '../Components/ProjectModalComponent';
-import ChatIconComponent from '../Components/ChatIconComponent';
+import DonateButtonComponent from '../Components/DonateButtonComponent';
 
 const HomeScreen = () => {
   // Fetch data from the backend API
@@ -166,7 +166,7 @@ const HomeScreen = () => {
         </div>
       </div>
 
-      <ChatIconComponent />
+      <DonateButtonComponent />
       {/* Modal Components */}
       {isModalOpen && <ModalComponent isOpen={isModalOpen} onClose={closeModal} blog={selectedBlog} />}
       {isProductOpen && <ProductModal isOpen={isProductOpen} onClose={closeProduct} product={selectedProduct} />}
