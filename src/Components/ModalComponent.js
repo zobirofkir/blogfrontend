@@ -17,7 +17,7 @@ const ModalComponent = ({ isOpen, onClose, blog }) => {
     }
 
     return () => {
-      document.title = "CSW-BLOG"; // Default title
+      document.title = "CSW-ZOBIR"; // Default title
     };
   }, [blog]);
 

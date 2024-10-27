@@ -14,7 +14,7 @@ const ProductInfoScreen = () => {
     }
 
     return () => {
-      document.title = "CSW-BLOG";
+      document.title = "CSW-ZOBIR";
     };
   }, [product]);
 

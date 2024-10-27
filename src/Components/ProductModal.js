@@ -12,7 +12,7 @@ const ProductModal = ({ isOpen, onClose, product }) => {
     }
 
     return () => {
-      document.title = "CSW-BLOG"; // Default name
+      document.title = "CSW-ZOBIR"; // Default name
     };
   }, [product]);
 

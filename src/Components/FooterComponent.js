@@ -26,7 +26,7 @@ const FooterComponent = () => {
           </ul>
           <hr className="my-6 border-gray-200 dark:border-gray-700" />
           <span className="block text-sm text-gray-500 dark:text-gray-400 text-center">
-            © 2024 <a href="/" className="hover:underline">CSW-BLOG™</a>. All Rights Reserved.
+            © 2024 <a href="/" className="hover:underline">CSW-ZOBIR™</a>. All Rights Reserved.
           </span>
         </div>
       </footer>

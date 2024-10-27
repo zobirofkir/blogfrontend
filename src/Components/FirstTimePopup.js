@@ -10,7 +10,7 @@ const FirstTimePopup = ({ onClose }) => {
           alt="Popup Icon"
           className="mx-auto mb-4"
         />
-        <h2 className="text-xl font-bold mb-2">Welcome to CSW-BLOG!</h2>
+        <h2 className="text-xl font-bold mb-2">Welcome to CSW-ZOBIR!</h2>
         <p className="text-gray-600 mb-4">
           Hey there! We're glad to have you here. Explore our content and enjoy the experience.
         </p>

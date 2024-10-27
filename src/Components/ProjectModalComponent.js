@@ -11,7 +11,7 @@ const ProjectModalComponent = ({ isOpen, onClose, project }) => {
     }
 
     return () => {
-      document.title = "CSW-BLOG"; // Default title
+      document.title = "CSW-ZOBIR"; // Default title
     };
   }, [project]);
 
