@@ -25,12 +25,12 @@ const SidebarComponent = ({ isSidebarOpen, toggleSidebar }) => {
       </button>
 
       <div
-        className={`fixed top-0 left-0 h-screen bg-white dark:bg-gray-900 md:w-64 w-full transition-transform duration-300 overflow-hidden ${
+        className={`fixed top-0 left-0 h-screen bg-gray-100 dark:bg-gray-900 md:w-64 w-full transition-transform duration-300 overflow-hidden ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
         id="sidebar"
       >
-        <div className="flex flex-col h-full bg-gray-100">
+        <div className="flex flex-col h-full">
           <div className="flex items-center p-4 mt-20 block">
             <img src={Logo} className="h-20 flex justify-center" alt="CSW-ZOBIR" />
           </div>
