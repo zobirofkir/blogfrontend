@@ -31,8 +31,8 @@ const SidebarComponent = ({ isSidebarOpen, toggleSidebar }) => {
         id="sidebar"
       >
         <div className="flex flex-col h-full">
-          <div className="flex items-center p-4 mt-20 block">
-            <img src={Logo} className="h-20 flex justify-center" alt="CSW-ZOBIR" />
+          <div className="flex items-center justify-center p-4 mt-20 block">
+            <img src={Logo} className="h-20 flex justify-center rounded-full" alt="CSW-ZOBIR" />
           </div>
           <nav className="flex-1 p-4">
             <ul className="space-y-2">
