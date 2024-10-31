@@ -100,9 +100,6 @@ const HomeScreen = () => {
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-white">Welcome To CSW-ZOBIR</h1>
             <p className="mt-4 text-xl text-gray-200">Discover the latest news and trends in the tech world.</p>
-            <a href='/contacts'>
-              <button className="mt-6 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Contact Me</button>
-            </a>
           </div>
         </div>
       </div>
