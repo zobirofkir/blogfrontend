@@ -8,7 +8,7 @@ const FirstTimePopup = ({ onClose }) => {
         <img
           src={Logo}
           alt="Popup Icon"
-          className="mx-auto mb-4"
+          className="mx-auto mb-4 rounded-[50%]"
         />
         <h2 className="text-xl font-bold mb-2">Welcome to CSW-ZOBIR!</h2>
         <p className="text-gray-600 mb-4">

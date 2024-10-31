@@ -6,7 +6,7 @@ const HeaderComponent = ({ toggleSidebar }) => {
     <nav className="bg-gray-100 border-gray-200 dark:bg-gray-900 sticky top-0 z-50">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-          <img src={Logo} className="h-8" alt="CSW-ZOBIR" />
+          <img src={Logo} className="h-8 rounded-full" alt="CSW-ZOBIR" />
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">ZOBIR</span>
         </a>
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
