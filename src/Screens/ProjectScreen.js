@@ -40,17 +40,8 @@ const ProjectScreen = () => {
         ></div>
         <div className="relative z-10 text-center px-4">
           <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-            Welcome to Our Project
+            Project
           </h1>
-          <p className="mt-4 text-lg md:text-xl">
-            Stay updated with the latest projects, tips, and insights.
-          </p>
-          <a
-            href="#latest-posts"
-            className="mt-6 inline-block bg-white text-blue-500 px-6 py-3 rounded-lg font-semibold dark:bg-gray-800 dark:text-blue-400 hover:underline"
-          >
-            Explore Now
-          </a>
         </div>
       </section>
 

@@ -28,19 +28,13 @@ const BlogScreen = () => {
           ></div>
           <div className="relative z-10 text-center px-4">
             <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-              Welcome to Our Blog
+              Blog
             </h1>
-            <p className="mt-4 text-lg md:text-xl">
-              Stay updated with the latest blogs, tips, and insights.
-            </p>
-            <a href='/contacts'>
-              <button className="mt-6 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Contact Me</button>
-            </a>
           </div>
         </section>
 
       {/* Main Content */}
-      <main className="mt-6">
+      <main className="mt-6 py-10">
         {/* Blog Post Cards */}
         <section id="latest-posts" className="container mx-auto px-4">
           <h2 className="text-3xl font-bold mb-6 text-center dark:text-white">

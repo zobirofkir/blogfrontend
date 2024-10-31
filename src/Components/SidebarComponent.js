@@ -25,7 +25,7 @@ const SidebarComponent = ({ isSidebarOpen, toggleSidebar }) => {
       </button>
 
       <div
-        className={`fixed top-0 left-0 h-full bg-white dark:bg-gray-900 md:w-64 w-full transition-transform duration-300 overflow-hidden ${
+        className={`fixed top-0 left-0 h-screen bg-white dark:bg-gray-900 md:w-64 w-full transition-transform duration-300 overflow-hidden ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
         id="sidebar"
@@ -78,6 +78,14 @@ const SidebarComponent = ({ isSidebarOpen, toggleSidebar }) => {
               </li>
               <li>
                 <a
+                  href="/prices"
+                  className="block py-2 px-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                >
+                  Price
+                </a>
+              </li>
+              <li>
+                <a
                   href="/contacts"
                   className="block py-2 px-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                 >
@@ -86,13 +94,17 @@ const SidebarComponent = ({ isSidebarOpen, toggleSidebar }) => {
               </li>
             </ul>
           </nav>
-          <div className='p-4'>
-            <p className="dark:text-white text-gray-950 font-bold text-sm">If you need to be an admin to create blogs, just contact me.</p>
-          </div>
           <div className="p-4">
             <a
-              href="/login"
+              href="https://buymeacoffee.com/zobirofkird"
               className="block py-2 px-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+            >
+              Donate
+            </a>
+
+            <a
+              href="/login"
+              className="block py-2 px-4 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 mt-2"
             >
               Login
             </a>

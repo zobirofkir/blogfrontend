@@ -55,6 +55,14 @@ const ContactScreen = () => {
   return (
     <>
       <ToastContainer />
+      <div className="bg-cover bg-center h-screen dark:bg-dark-image bg-light-image">
+        <div className="h-full bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-4xl md:text-6xl font-bold text-white">Contact Us</h1>
+          </div>
+        </div>
+      </div>
+
       <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
         <div className="w-full max-w-lg bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
           <h1 className="text-3xl font-bold mb-4">Contact Us</h1>

@@ -10,6 +10,16 @@ import DonateButtonComponent from '../Components/DonateButtonComponent';
  */
 const AboutScreen = () => {
   return (
+
+    <>
+        <div className="bg-cover bg-center h-screen dark:bg-dark-image bg-light-image">
+        <div className="h-full bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-4xl md:text-6xl font-bold text-white">About Us</h1>
+          </div>
+        </div>
+      </div>
+
     <div className="min-h-screen flex items-center justify-center p-4 bg-gray-100 dark:bg-gray-800">
       {/* The main container element */}
       <div className="max-w-4xl mx-auto bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg">
@@ -28,6 +38,7 @@ const AboutScreen = () => {
       {/* The chat icon component */}
       <DonateButtonComponent/>
     </div>
+    </>
   );
 }
 export default AboutScreen;
