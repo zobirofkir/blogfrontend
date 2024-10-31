@@ -46,7 +46,7 @@ const ProjectScreen = () => {
       </section>
 
       {/* Main Content */}
-      <main className="mt-6">
+      <main className="mt-6 py-10">
         {/* Project Post Cards */}
         <section id="latest-posts" className="container mx-auto px-4">
           <h2 className="text-3xl font-bold mb-6 text-center dark:text-white">
