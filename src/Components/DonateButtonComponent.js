@@ -5,7 +5,7 @@ const DonateButtonComponent = () => {
     window.location.href = "https://buymeacoffee.com/zobirofkird";
   }
   return (
-    <div>
+    <div className='dark:hidden'>
         <svg
           fill="#000000" 
           height="48px" 
