@@ -139,7 +139,7 @@ const HomeScreen = () => {
                 <button onClick={() => openProject(project)} className="text-blue-500 font-semibold hover:underline dark:text-blue-400">
                   Read More
                 </button>
-                <p className="mb-4 overflow-hidden text-black dark:text-white">{formatTimeAndYear(project.created_at)}</p>
+                <p className=" overflow-hidden text-black dark:text-white">{formatTimeAndYear(project.created_at)}</p>
               </div>
             </div>
           ))}
@@ -157,7 +157,7 @@ const HomeScreen = () => {
                 <button onClick={() => openModal(blog)} className="text-blue-500 font-semibold hover:underline dark:text-blue-400">
                   Read More
                 </button>
-                <p className="mb-4 overflow-hidden text-black dark:text-white">{formatTimeAndYear(blog.created_at)}</p>
+                <p className=" overflow-hidden text-black dark:text-white">{formatTimeAndYear(blog.created_at)}</p>
             </div>
 
           </div>
@@ -177,7 +177,7 @@ const HomeScreen = () => {
                   <button onClick={() => openProduct(product)} className="text-blue-500 font-semibold hover:underline dark:text-blue-400">
                     Read More
                   </button>
-                  <p className="mb-4 overflow-hidden text-black dark:text-white">{formatTimeAndYear(product.created_at)}</p>
+                  <p className=" overflow-hidden text-black dark:text-white">{formatTimeAndYear(product.created_at)}</p>
               </div>
 
             </div>

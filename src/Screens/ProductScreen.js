@@ -87,7 +87,7 @@ const ProductScreen = () => {
                           Read More
                       </button>
 
-                      <p className="mb-4 overflow-hidden text-black dark:text-white">{formatTimeAndYear(product.created_at)}</p>
+                      <p className="overflow-hidden text-black dark:text-white">{formatTimeAndYear(product.created_at)}</p>
                   </div>
 
                 </div>
