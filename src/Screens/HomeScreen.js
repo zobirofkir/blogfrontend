@@ -92,6 +92,17 @@ const HomeScreen = () => {
     // Set the selected project state variable to null
   };
 
+  const formatTimeAndYear = (dateString) => {
+    const date = new Date(dateString);
+    const time = date.toLocaleTimeString([], {
+       hour: '2-digit',
+       minute: '2-digit'   
+    });
+    const year = date.getFullYear();
+    return `${time}, ${year}`;
+  };
+
+
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
       {/* Hero Section */}
@@ -124,9 +135,12 @@ const HomeScreen = () => {
               <img src={project.image} alt={project.title} className="w-full h-48 object-cover rounded-md mb-4" />
               <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
               <p className="text-gray-700 dark:text-gray-300 mb-4 overflow-hidden">{project.description.substring(0, 100)}...</p>
-              <button onClick={() => openProject(project)} className="text-blue-500 font-semibold hover:underline dark:text-blue-400">
-                Read More
-              </button>
+              <div className='flex justify-between w-full items-center'>
+                <button onClick={() => openProject(project)} className="text-blue-500 font-semibold hover:underline dark:text-blue-400">
+                  Read More
+                </button>
+                <p className="mb-4 overflow-hidden text-black dark:text-white">{formatTimeAndYear(project.created_at)}</p>
+              </div>
             </div>
           ))}
         </div>
