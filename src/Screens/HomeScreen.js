@@ -153,9 +153,13 @@ const HomeScreen = () => {
             <img src={blog.image || 'https://i.gifer.com/35LA.gif'} alt={blog.title} className="w-full h-48 object-cover rounded-md mb-4" />
             <h3 className="text-xl font-semibold mb-2">{blog.title}</h3>
             <p className="text-gray-700 dark:text-gray-300 mb-4">{blog.description.substring(0, 100)}...</p>
-            <button onClick={() => openModal(blog)} className="text-blue-500 font-semibold hover:underline dark:text-blue-400">
-              Read More
-            </button>
+            <div className='flex justify-between w-full items-center'>
+                <button onClick={() => openModal(blog)} className="text-blue-500 font-semibold hover:underline dark:text-blue-400">
+                  Read More
+                </button>
+                <p className="mb-4 overflow-hidden text-black dark:text-white">{formatTimeAndYear(blog.created_at)}</p>
+            </div>
+
           </div>
         ))}
       </div>
@@ -169,9 +173,13 @@ const HomeScreen = () => {
               <img src={product.thumbnail} alt={product.name} className="w-full h-48 object-cover rounded-md mb-4" />
               <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
               <p className="text-gray-700 dark:text-gray-300 mb-4 overflow-hidden">{product.description.substring(0, 100)}...</p>
-              <button onClick={() => openProduct(product)} className="text-blue-500 font-semibold hover:underline dark:text-blue-400">
-                Read More
-              </button>
+              <div className='flex justify-between w-full items-center'>
+                  <button onClick={() => openProduct(product)} className="text-blue-500 font-semibold hover:underline dark:text-blue-400">
+                    Read More
+                  </button>
+                  <p className="mb-4 overflow-hidden text-black dark:text-white">{formatTimeAndYear(product.created_at)}</p>
+              </div>
+
             </div>
           ))}
         </div>

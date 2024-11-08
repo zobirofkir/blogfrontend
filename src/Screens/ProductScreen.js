@@ -31,6 +31,16 @@ const ProductScreen = () => {
     setSelectedProduct(null);
   };
 
+  const formatTimeAndYear = (dateString) => {
+    const date = new Date(dateString);
+    const time = date.toLocaleTimeString([], {
+       hour: '2-digit',
+       minute: '2-digit'   
+    });
+    const year = date.getFullYear();
+    return `${time}, ${year}`;
+  };
+
   return (
     <div className="bg-gray-100 dark:bg-gray-900 min-h-screen">
       {/* Hero Section */}
@@ -69,12 +79,17 @@ const ProductScreen = () => {
                   <p className="text-gray-700 dark:text-gray-300 mb-4">
                     {product.description ? product.description.substring(0, 100) : 'Content not available...'}
                   </p>
-                  <button
-                    onClick={() => openModal(product)}
-                    className="text-blue-500 font-semibold hover:underline dark:text-blue-400"
-                  >
-                    Read More
-                  </button>
+                  <div className='flex justify-between w-full items-center'>
+                      <button
+                        onClick={() => openModal(product)}
+                        className="text-blue-500 font-semibold hover:underline dark:text-blue-400"
+                      >
+                          Read More
+                      </button>
+
+                      <p className="mb-4 overflow-hidden text-black dark:text-white">{formatTimeAndYear(product.created_at)}</p>
+                  </div>
+
                 </div>
               ))
             ) : (
